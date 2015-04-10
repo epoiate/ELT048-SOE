@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.3.0 #8604 (May 11 2013) (MINGW32)
-; This file was generated Wed Apr 01 10:06:20 2015
+; This file was generated Wed Apr 08 08:51:26 2015
 ;--------------------------------------------------------
 ; PIC16 port for the Microchip 16-bit core micros
 ;--------------------------------------------------------
@@ -141,7 +141,7 @@ _initLed:
 	MOVF	r0x00, W
 	BANKSEL	_eu
 	MOVWF	_eu, B
-;	.line	28; drvLed.c	return FIM_OK;
+;	.line	28; drvLed.c	return SUCCESS;
 	MOVLW	0x01
 	MOVFF	PREINC1, r0x02
 	MOVFF	PREINC1, r0x01
@@ -162,7 +162,7 @@ _invertPORTD:
 	COMF	r0x00, F
 	LFSR	0x00, 0xf83
 	MOVFF	r0x00, INDF0
-;	.line	20; drvLed.c	return FIM_OK;
+;	.line	20; drvLed.c	return SUCCESS;
 	MOVLW	0x01
 	MOVFF	PREINC1, r0x00
 	MOVFF	PREINC1, FSR2L
@@ -186,7 +186,7 @@ _changePORTD:
 ;	.line	14; drvLed.c	PORTD = (char) parameters;
 	LFSR	0x00, 0xf83
 	MOVFF	r0x00, INDF0
-;	.line	15; drvLed.c	return FIM_OK;
+;	.line	15; drvLed.c	return SUCCESS;
 	MOVLW	0x01
 	MOVFF	PREINC1, r0x02
 	MOVFF	PREINC1, r0x01

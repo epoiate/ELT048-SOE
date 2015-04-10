@@ -1,6 +1,6 @@
 #ifndef dd_types_h
     #define dd_types_h
-    #define FIM_OK 1
+    #define SUCCESS 1
 
 //ptr. de func. para uma função do driver
 typedef char(*ptrFuncDrv)(void *parameters);

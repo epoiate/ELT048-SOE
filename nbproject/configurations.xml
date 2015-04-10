@@ -34,6 +34,12 @@
     <itemPath>drvLed.h</itemPath>
     <itemPath>drvLcd.c</itemPath>
     <itemPath>drvLcd.h</itemPath>
+    <itemPath>kernel.c</itemPath>
+    <itemPath>kernel.h</itemPath>
+    <itemPath>lcd.c</itemPath>
+    <itemPath>lcd.h</itemPath>
+    <itemPath>ctrl_dd.c</itemPath>
+    <itemPath>ctrl_dd.h</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>../../Desktop/lab05-18-03-15.X/nbproject/private</Elem>

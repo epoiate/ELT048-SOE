@@ -1,0 +1,360 @@
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-8-2015  08:51:27          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.3.0 #8604 (May 11 2013) (MINGW32)
+                      00004 ; This file was generated Wed Apr 08 08:51:27 2015
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC16 port for the Microchip 16-bit core micros
+                      00007 ;--------------------------------------------------------
+                      00008         list    p=18f4520
+                      00009         radix   dec
+                      00010 
+                      00011 
+                      00012 ;--------------------------------------------------------
+                      00013 ; public variables in this module
+                      00014 ;--------------------------------------------------------
+  0000                00015         global  _EnviaComando
+  0000                00016         global  _EnviaDados
+  0000                00017         global  _InicializaLCD
+  0000                00018         global  _Delay40us
+  0000                00019         global  _Delay2ms
+                      00020 
+                      00021 ;--------------------------------------------------------
+                      00022 ;       Equates to used internal registers
+                      00023 ;--------------------------------------------------------
+  00000FD8            00024 STATUS  equ     0xfd8
+  00000FE1            00025 FSR1L   equ     0xfe1
+  00000FD9            00026 FSR2L   equ     0xfd9
+  00000FEF            00027 INDF0   equ     0xfef
+  00000FE6            00028 POSTINC1        equ     0xfe6
+  00000FE5            00029 POSTDEC1        equ     0xfe5
+  00000FE4            00030 PREINC1 equ     0xfe4
+  00000FDB            00031 PLUSW2  equ     0xfdb
+                      00032 
+                      00033 
+                      00034 ; Internal registers
+                      00035 .registers      udata_ovr       0x0000
+000000                00036 r0x00   res     1
+000001                00037 r0x01   res     1
+                      00038 
+                      00039 ;--------------------------------------------------------
+                      00040 ; global & static initialisations
+                      00041 ;--------------------------------------------------------
+                      00042 ; I code from now on!
+                      00043 ; ; Starting pCode block
+                      00044 S_lcd__InicializaLCD    code
+000000                00045 _InicializaLCD:
+                      00046 ;       .line   74; lcd.c       void InicializaLCD(void)
+000000 CFD9 FFE5      00047         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00048         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00049         MOVFF   r0x00, POSTDEC1
+                      00050 ;       .line   79; lcd.c       Delay2ms();
+00000C EC?? F0??      00051         CALL    _Delay2ms
+                      00052 ;       .line   80; lcd.c       Delay2ms();
+000010 EC?? F0??      00053         CALL    _Delay2ms
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-8-2015  08:51:27          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00054 ;       .line   81; lcd.c       Delay2ms();
+000014 EC?? F0??      00055         CALL    _Delay2ms
+                      00056 ;       .line   82; lcd.c       Delay2ms();
+000018 EC?? F0??      00057         CALL    _Delay2ms
+                      00058 ;       .line   83; lcd.c       Delay2ms();
+00001C EC?? F0??      00059         CALL    _Delay2ms
+                      00060 ;       .line   86; lcd.c       BitClr(TRISE,RS);       //RS
+000020 EE0F F096      00061         LFSR    0x00, 0xf96
+000024 CFEF F000      00062         MOVFF   INDF0, r0x00
+000028 90??           00063         BCF     r0x00, 0
+00002A EE0F F096      00064         LFSR    0x00, 0xf96
+00002E C??? F???      00065         MOVFF   r0x00, INDF0
+                      00066 ;       .line   87; lcd.c       BitClr(TRISE,EN);       //EN
+000032 EE0F F096      00067         LFSR    0x00, 0xf96
+000036 CFEF F000      00068         MOVFF   INDF0, r0x00
+00003A 92??           00069         BCF     r0x00, 1
+00003C EE0F F096      00070         LFSR    0x00, 0xf96
+000040 C??? F???      00071         MOVFF   r0x00, INDF0
+                      00072 ;       .line   88; lcd.c       BitClr(TRISE,RW);       //RW
+000044 EE0F F096      00073         LFSR    0x00, 0xf96
+000048 CFEF F000      00074         MOVFF   INDF0, r0x00
+00004C 94??           00075         BCF     r0x00, 2
+00004E EE0F F096      00076         LFSR    0x00, 0xf96
+000052 C??? F???      00077         MOVFF   r0x00, INDF0
+                      00078 ;       .line   89; lcd.c       TRISD = 0x00;           //dados
+000056 EE0F F095      00079         LFSR    0x00, 0xf95
+00005A 0E00           00080         MOVLW   0x00
+00005C 6EEF           00081         MOVWF   INDF0
+                      00082 ;       .line   90; lcd.c       ADCON1 = 0b00001110;    //apenas
+00005E EE0F F0C1      00083         LFSR    0x00, 0xfc1
+000062 0E0E           00084         MOVLW   0x0e
+000064 6EEF           00085         MOVWF   INDF0
+                      00086 ;       .line   93; lcd.c       EnviaComando(0x38);     //8bits, 2 linhas, 5x8
+000066 0E38           00087         MOVLW   0x38
+000068 6EE5           00088         MOVWF   POSTDEC1
+00006A EC?? F0??      00089         CALL    _EnviaComando
+00006E 52E6           00090         MOVF    POSTINC1, F
+                      00091 ;       .line   94; lcd.c       EnviaComando(0x06);     //modo incremental
+000070 0E06           00092         MOVLW   0x06
+000072 6EE5           00093         MOVWF   POSTDEC1
+000074 EC?? F0??      00094         CALL    _EnviaComando
+000078 52E6           00095         MOVF    POSTINC1, F
+                      00096 ;       .line   95; lcd.c       EnviaComando(0x0F);     //display e cursor on, com blink
+00007A 0E0F           00097         MOVLW   0x0f
+00007C 6EE5           00098         MOVWF   POSTDEC1
+00007E EC?? F0??      00099         CALL    _EnviaComando
+000082 52E6           00100         MOVF    POSTINC1, F
+                      00101 ;       .line   96; lcd.c       EnviaComando(0x03);     //zera tudo
+000084 0E03           00102         MOVLW   0x03
+000086 6EE5           00103         MOVWF   POSTDEC1
+000088 EC?? F0??      00104         CALL    _EnviaComando
+00008C 52E6           00105         MOVF    POSTINC1, F
+                      00106 ;       .line   97; lcd.c       EnviaComando(0x01);     //limpar display
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-8-2015  08:51:27          PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00008E 0E01           00107         MOVLW   0x01
+000090 6EE5           00108         MOVWF   POSTDEC1
+000092 EC?? F0??      00109         CALL    _EnviaComando
+000096 52E6           00110         MOVF    POSTINC1, F
+                      00111 ;       .line   98; lcd.c       EnviaComando(0x80);     //posição inicial
+000098 0E80           00112         MOVLW   0x80
+00009A 6EE5           00113         MOVWF   POSTDEC1
+00009C EC?? F0??      00114         CALL    _EnviaComando
+0000A0 52E6           00115         MOVF    POSTINC1, F
+0000A2 CFE4 F000      00116         MOVFF   PREINC1, r0x00
+0000A6 CFE4 FFD9      00117         MOVFF   PREINC1, FSR2L
+0000AA 0012           00118         RETURN  
+                      00119 
+                      00120 ; ; Starting pCode block
+                      00121 S_lcd__EnviaDados       code
+000000                00122 _EnviaDados:
+                      00123 ;       .line   59; lcd.c       void EnviaDados(unsigned char valor)
+000000 CFD9 FFE5      00124         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00125         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00126         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00127         MOVFF   r0x01, POSTDEC1
+000010 0E02           00128         MOVLW   0x02
+000012 CFDB F000      00129         MOVFF   PLUSW2, r0x00
+                      00130 ;       .line   61; lcd.c       BitSet(PORTE,RS);       //dados
+000016 EE0F F084      00131         LFSR    0x00, 0xf84
+00001A CFEF F000      00132         MOVFF   INDF0, r0x01
+00001E 80??           00133         BSF     r0x01, 0
+000020 EE0F F084      00134         LFSR    0x00, 0xf84
+000024 C??? F???      00135         MOVFF   r0x01, INDF0
+                      00136 ;       .line   62; lcd.c       BitClr(PORTE,RW);       // habilita escrita
+000028 EE0F F084      00137         LFSR    0x00, 0xf84
+00002C CFEF F000      00138         MOVFF   INDF0, r0x01
+000030 94??           00139         BCF     r0x01, 2
+000032 EE0F F084      00140         LFSR    0x00, 0xf84
+000036 C??? F???      00141         MOVFF   r0x01, INDF0
+                      00142 ;       .line   65; lcd.c       PORTD = valor;
+00003A EE0F F083      00143         LFSR    0x00, 0xf83
+00003E C??? F???      00144         MOVFF   r0x00, INDF0
+                      00145 ;       .line   66; lcd.c       BitSet(PORTE,EN);//habilita leitura
+000042 EE0F F084      00146         LFSR    0x00, 0xf84
+000046 CFEF F000      00147         MOVFF   INDF0, r0x00
+00004A 82??           00148         BSF     r0x00, 1
+00004C EE0F F084      00149         LFSR    0x00, 0xf84
+000050 C??? F???      00150         MOVFF   r0x00, INDF0
+                      00151 ;       .line   67; lcd.c       Delay40us();
+000054 EC?? F0??      00152         CALL    _Delay40us
+                      00153 ;       .line   68; lcd.c       BitClr(PORTE,EN);//termina leitura
+000058 EE0F F084      00154         LFSR    0x00, 0xf84
+00005C CFEF F000      00155         MOVFF   INDF0, r0x00
+000060 92??           00156         BCF     r0x00, 1
+000062 EE0F F084      00157         LFSR    0x00, 0xf84
+000066 C??? F???      00158         MOVFF   r0x00, INDF0
+                      00159 ;       .line   69; lcd.c       BitClr(PORTE,RS);       //deixa em nivel baixo
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-8-2015  08:51:27          PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00006A EE0F F084      00160         LFSR    0x00, 0xf84
+00006E CFEF F000      00161         MOVFF   INDF0, r0x00
+000072 90??           00162         BCF     r0x00, 0
+000074 EE0F F084      00163         LFSR    0x00, 0xf84
+000078 C??? F???      00164         MOVFF   r0x00, INDF0
+                      00165 ;       .line   70; lcd.c       BitClr(PORTE,RW);       //deixa em nivel baixo
+00007C EE0F F084      00166         LFSR    0x00, 0xf84
+000080 CFEF F000      00167         MOVFF   INDF0, r0x00
+000084 94??           00168         BCF     r0x00, 2
+000086 EE0F F084      00169         LFSR    0x00, 0xf84
+00008A C??? F???      00170         MOVFF   r0x00, INDF0
+                      00171 ;       .line   71; lcd.c       Delay40us();
+00008E EC?? F0??      00172         CALL    _Delay40us
+000092 CFE4 F000      00173         MOVFF   PREINC1, r0x01
+000096 CFE4 F000      00174         MOVFF   PREINC1, r0x00
+00009A CFE4 FFD9      00175         MOVFF   PREINC1, FSR2L
+00009E 0012           00176         RETURN  
+                      00177 
+                      00178 ; ; Starting pCode block
+                      00179 S_lcd__EnviaComando     code
+000000                00180 _EnviaComando:
+                      00181 ;       .line   45; lcd.c       void EnviaComando(unsigned char cmd)
+000000 CFD9 FFE5      00182         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00183         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00184         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00185         MOVFF   r0x01, POSTDEC1
+000010 0E02           00186         MOVLW   0x02
+000012 CFDB F000      00187         MOVFF   PLUSW2, r0x00
+                      00188 ;       .line   47; lcd.c       BitClr(PORTE,RS);       //comando
+000016 EE0F F084      00189         LFSR    0x00, 0xf84
+00001A CFEF F000      00190         MOVFF   INDF0, r0x01
+00001E 90??           00191         BCF     r0x01, 0
+000020 EE0F F084      00192         LFSR    0x00, 0xf84
+000024 C??? F???      00193         MOVFF   r0x01, INDF0
+                      00194 ;       .line   48; lcd.c       BitClr(PORTE,RW);       // habilita escrita
+000028 EE0F F084      00195         LFSR    0x00, 0xf84
+00002C CFEF F000      00196         MOVFF   INDF0, r0x01
+000030 94??           00197         BCF     r0x01, 2
+000032 EE0F F084      00198         LFSR    0x00, 0xf84
+000036 C??? F???      00199         MOVFF   r0x01, INDF0
+                      00200 ;       .line   50; lcd.c       PORTD = cmd;
+00003A EE0F F083      00201         LFSR    0x00, 0xf83
+00003E C??? F???      00202         MOVFF   r0x00, INDF0
+                      00203 ;       .line   51; lcd.c       BitSet(PORTE,EN);//habilita leitura
+000042 EE0F F084      00204         LFSR    0x00, 0xf84
+000046 CFEF F000      00205         MOVFF   INDF0, r0x00
+00004A 82??           00206         BSF     r0x00, 1
+00004C EE0F F084      00207         LFSR    0x00, 0xf84
+000050 C??? F???      00208         MOVFF   r0x00, INDF0
+                      00209 ;       .line   52; lcd.c       Delay2ms();
+000054 EC?? F0??      00210         CALL    _Delay2ms
+                      00211 ;       .line   53; lcd.c       BitClr(PORTE,EN);//termina leitura
+000058 EE0F F084      00212         LFSR    0x00, 0xf84
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-8-2015  08:51:27          PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00005C CFEF F000      00213         MOVFF   INDF0, r0x00
+000060 92??           00214         BCF     r0x00, 1
+000062 EE0F F084      00215         LFSR    0x00, 0xf84
+000066 C??? F???      00216         MOVFF   r0x00, INDF0
+                      00217 ;       .line   54; lcd.c       BitClr(PORTE,RS);       //deixa em nivel baixo
+00006A EE0F F084      00218         LFSR    0x00, 0xf84
+00006E CFEF F000      00219         MOVFF   INDF0, r0x00
+000072 90??           00220         BCF     r0x00, 0
+000074 EE0F F084      00221         LFSR    0x00, 0xf84
+000078 C??? F???      00222         MOVFF   r0x00, INDF0
+                      00223 ;       .line   55; lcd.c       BitClr(PORTE,RW);       //deixa em nivel baixo
+00007C EE0F F084      00224         LFSR    0x00, 0xf84
+000080 CFEF F000      00225         MOVFF   INDF0, r0x00
+000084 94??           00226         BCF     r0x00, 2
+000086 EE0F F084      00227         LFSR    0x00, 0xf84
+00008A C??? F???      00228         MOVFF   r0x00, INDF0
+                      00229 ;       .line   56; lcd.c       Delay2ms();
+00008E EC?? F0??      00230         CALL    _Delay2ms
+000092 CFE4 F000      00231         MOVFF   PREINC1, r0x01
+000096 CFE4 F000      00232         MOVFF   PREINC1, r0x00
+00009A CFE4 FFD9      00233         MOVFF   PREINC1, FSR2L
+00009E 0012           00234         RETURN  
+                      00235 
+                      00236 ; ; Starting pCode block
+                      00237 S_lcd__Delay2ms code
+000000                00238 _Delay2ms:
+                      00239 ;       .line   36; lcd.c       void Delay2ms(void)
+000000 CFD9 FFE5      00240         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00241         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00242         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00243         MOVFF   r0x01, POSTDEC1
+                      00244 ;       .line   39; lcd.c       for(i=0; i < 200; i++)
+000010 0EC8           00245         MOVLW   0xc8
+000012 6E??           00246         MOVWF   r0x00
+000014                00247 _00117_DS_:
+                      00248 ;       .line   41; lcd.c       Delay40us();
+000014 EC?? F0??      00249         CALL    _Delay40us
+000018 50??           00250         MOVF    r0x00, W
+00001A 6E??           00251         MOVWF   r0x01
+00001C 04??           00252         DECF    r0x01, W
+00001E 6E??           00253         MOVWF   r0x00
+                      00254 ;       .line   39; lcd.c       for(i=0; i < 200; i++)
+000020 50??           00255         MOVF    r0x00, W
+000022 E1??           00256         BNZ     _00117_DS_
+000024 CFE4 F000      00257         MOVFF   PREINC1, r0x01
+000028 CFE4 F000      00258         MOVFF   PREINC1, r0x00
+00002C CFE4 FFD9      00259         MOVFF   PREINC1, FSR2L
+000030 0012           00260         RETURN  
+                      00261 
+                      00262 ; ; Starting pCode block
+                      00263 S_lcd__Delay40us        code
+000000                00264 _Delay40us:
+                      00265 ;       .line   28; lcd.c       void Delay40us(void)
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-8-2015  08:51:27          PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000000 CFD9 FFE5      00266         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00267         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00268         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00269         MOVFF   r0x01, POSTDEC1
+                      00270 ;       .line   33; lcd.c       for(i=0; i < 25; i++); //3 + 3 * 25 = 78
+000010 0E19           00271         MOVLW   0x19
+000012 6E??           00272         MOVWF   r0x00
+000014                00273 _00108_DS_:
+000014 50??           00274         MOVF    r0x00, W
+000016 6E??           00275         MOVWF   r0x01
+000018 04??           00276         DECF    r0x01, W
+00001A 6E??           00277         MOVWF   r0x00
+00001C 50??           00278         MOVF    r0x00, W
+00001E E1??           00279         BNZ     _00108_DS_
+000020 CFE4 F000      00280         MOVFF   PREINC1, r0x01
+000024 CFE4 F000      00281         MOVFF   PREINC1, r0x00
+000028 CFE4 FFD9      00282         MOVFF   PREINC1, FSR2L
+00002C 0012           00283         RETURN  
+                      00284 
+                      00285 
+                      00286 
+                      00287 ; Statistics:
+                      00288 ; code size:      588 (0x024c) bytes ( 0.45%)
+                      00289 ;                 294 (0x0126) words
+                      00290 ; udata size:       0 (0x0000) bytes ( 0.00%)
+                      00291 ; access size:      2 (0x0002) bytes
+                      00292 
+                      00293 
+                      00294         end
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-8-2015  08:51:27          PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+INDF0                             00000FEF
+PLUSW2                            00000FDB
+POSTDEC1                          00000FE5
+POSTINC1                          00000FE6
+PREINC1                           00000FE4
+STATUS                            00000FD8
+_00108_DS_                        00000014
+_00117_DS_                        00000014
+_Delay2ms                         00000000
+_Delay40us                        00000000
+_EnviaComando                     00000000
+_EnviaDados                       00000000
+_InicializaLCD                    00000000
+__18F4520                         00000001
+r0x00                             00000000
+r0x01                             00000001
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

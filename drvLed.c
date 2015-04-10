@@ -12,12 +12,12 @@ static ptrFuncDrv minhas_funcoes[LED_END];
 
 char changePORTD(void *parameters) {
     PORTD = (char) parameters;
-    return FIM_OK;
+    return SUCCESS;
 }
 
 char invertPORTD(void *parameters) {
     PORTD = ~PORTD;
-    return FIM_OK;
+    return SUCCESS;
 }
 
 //função para inicialização do hardware
@@ -25,7 +25,7 @@ char invertPORTD(void *parameters) {
 char initLed(void *parameters) {
     TRISD = 0x00;
     eu.drv_id = (char) parameters;
-    return FIM_OK;
+    return SUCCESS;
 }
 
 //função para acesso ao driver

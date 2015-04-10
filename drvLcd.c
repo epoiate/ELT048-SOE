@@ -20,95 +20,36 @@
 
 #include "drvLcd.h"
 #include "basico.h"
-
-#define RS 0
-#define EN 1
-#define RW 2
+#include "lcd.h"
 
 static driver eu;
 
 static ptrFuncDrv minhas_funcoes[LCD_END];
 
-void Delay40us(void) {
-    //para um cristal de 8MHz cada instrução
-    //gasta 0,5 us: 40/0,5 = 80 instruções
-    unsigned char i;
-    for (i = 0; i < 25; i++); //3 + 3 * 25 = 78
+
+char cmd(void *parameters) {
+    EnviaComando((unsigned char)parameters);
+
+    return SUCCESS;
 }
 
-void Delay2ms(void) {
-    unsigned char i;
-    for (i = 0; i < 200; i++) {
-        Delay40us();
-    }
+char CHAR(void *parameters) {
+    EnviaDados((unsigned char)parameters);
+    return SUCCESS;
 }
 
-char EnviaComando(void *parameters) {
-    BitClr(PORTE, RS); //comando
-    BitClr(PORTE, RW); // habilita escrita
-
-    PORTD = (unsigned char)parameters;
-    BitSet(PORTE, EN); //habilita leitura
-    Delay2ms();
-    BitClr(PORTE, EN); //termina leitura
-    BitClr(PORTE, RS); //deixa em nivel baixo
-    BitClr(PORTE, RW); //deixa em nivel baixo
-    Delay2ms();
-
-    return FIM_OK;
-}
-
-char EnviaDados(void *parameters) {
-    BitSet(PORTE, RS); //dados
-    BitClr(PORTE, RW); // habilita escrita
-
-
-    PORTD = (unsigned char)parameters;
-    BitSet(PORTE, EN); //habilita leitura
-    Delay40us();
-    BitClr(PORTE, EN); //termina leitura
-    BitClr(PORTE, RS); //deixa em nivel baixo
-    BitClr(PORTE, RW); //deixa em nivel baixo
-    Delay40us();
-
-    return FIM_OK;
-}
-
-char InicializaLCD(void *parameters) {
-    // Inicializa o LCD
-
-    // garante inicialização do LCD
-    Delay2ms();
-    Delay2ms();
-    Delay2ms();
-    Delay2ms();
-    Delay2ms();
-
-    // configurações de direção dos terminais
-    BitClr(TRISE, RS); //RS
-    BitClr(TRISE, EN); //EN
-    BitClr(TRISE, RW); //RW
-    TRISD = 0x00; //dados
-    ADCON1 = 0b00001110; //apenas
-
-    //configura o display
-    EnviaComando(0x38); //8bits, 2 linhas, 5x8
-    EnviaComando(0x06); //modo incremental
-    EnviaComando(0x0F); //display e cursor on, com blink
-    EnviaComando(0x03); //zera tudo
-    EnviaComando(0x01); //limpar display
-    EnviaComando(0x80); //posição inicial
-
+char init(void *parameters) {
+    InicializaLCD();
     eu.drv_id = (char) parameters;
-    return FIM_OK;
+    return SUCCESS;
 }
 
 driver* getLcdDriver(void) {
     //função de inicialização
-    eu.drv_init = InicializaLCD;
+    eu.drv_init = init;
     //funções do driver
-    minhas_funcoes[LCD_COMANDO] = EnviaComando;
-    minhas_funcoes[LCD_DADOS] = EnviaDados;
+    minhas_funcoes[LCD_CMD] = cmd;
+    minhas_funcoes[LCD_CHAR] = CHAR;
     //atualizando a referencia da lista
     eu.drv_func = minhas_funcoes;
     return &eu;

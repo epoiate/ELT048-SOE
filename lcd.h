@@ -17,21 +17,12 @@
 //   GNU General Public License for more details.
 // -----------------------------------------------------------------------
 
-#ifndef drvLcd_H
-    #define drvLcd_H
-    #include "dd_types.h"
+#ifndef LCD_H
+	#define LCD_H
 
-    //lista de funções do driver
-    enum {
-        LCD_CMD, LCD_CHAR, LCD_END
-    };
-
-    //função de acesso ao driver
-    driver* getLcdDriver(void);
-
-    /*
-    void EnviaComando(unsigned char cmd);
-    void EnviaDados(unsigned char valor);
-    void InicializaLCD(void);
-      */
+	void EnviaComando(unsigned char cmd);
+	void EnviaDados(unsigned char valor);
+	void InicializaLCD(void);
+        
+        
 #endif

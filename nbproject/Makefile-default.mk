@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c drvLed.c drvLcd.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c drvLed.c drvLcd.c kernel.c lcd.c ctrl_dd.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/drvLed.o ${OBJECTDIR}/drvLcd.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/drvLed.o.d ${OBJECTDIR}/drvLcd.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/drvLed.o ${OBJECTDIR}/drvLcd.o ${OBJECTDIR}/kernel.o ${OBJECTDIR}/lcd.o ${OBJECTDIR}/ctrl_dd.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/drvLed.o.d ${OBJECTDIR}/drvLcd.o.d ${OBJECTDIR}/kernel.o.d ${OBJECTDIR}/lcd.o.d ${OBJECTDIR}/ctrl_dd.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/drvLed.o ${OBJECTDIR}/drvLcd.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/drvLed.o ${OBJECTDIR}/drvLcd.o ${OBJECTDIR}/kernel.o ${OBJECTDIR}/lcd.o ${OBJECTDIR}/ctrl_dd.o
 
 # Source Files
-SOURCEFILES=main.c drvLed.c drvLcd.c
+SOURCEFILES=main.c drvLed.c drvLcd.c kernel.c lcd.c ctrl_dd.c
 
 
 CFLAGS=
@@ -92,6 +92,21 @@ ${OBJECTDIR}/drvLcd.o: drvLcd.c  nbproject/Makefile-${CND_CONF}.mk
 	${RM} ${OBJECTDIR}/drvLcd.o 
 	${MP_CC} --debug-ralloc --use-non-free --pstack-model=small -c -mpic16 -p18f4520 drvLcd.c  -o${OBJECTDIR}/drvLcd.o
 	
+${OBJECTDIR}/kernel.o: kernel.c  nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} ${OBJECTDIR} 
+	${RM} ${OBJECTDIR}/kernel.o 
+	${MP_CC} --debug-ralloc --use-non-free --pstack-model=small -c -mpic16 -p18f4520 kernel.c  -o${OBJECTDIR}/kernel.o
+	
+${OBJECTDIR}/lcd.o: lcd.c  nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} ${OBJECTDIR} 
+	${RM} ${OBJECTDIR}/lcd.o 
+	${MP_CC} --debug-ralloc --use-non-free --pstack-model=small -c -mpic16 -p18f4520 lcd.c  -o${OBJECTDIR}/lcd.o
+	
+${OBJECTDIR}/ctrl_dd.o: ctrl_dd.c  nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} ${OBJECTDIR} 
+	${RM} ${OBJECTDIR}/ctrl_dd.o 
+	${MP_CC} --debug-ralloc --use-non-free --pstack-model=small -c -mpic16 -p18f4520 ctrl_dd.c  -o${OBJECTDIR}/ctrl_dd.o
+	
 else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} ${OBJECTDIR} 
@@ -107,6 +122,21 @@ ${OBJECTDIR}/drvLcd.o: drvLcd.c  nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} ${OBJECTDIR} 
 	${RM} ${OBJECTDIR}/drvLcd.o 
 	${MP_CC} --debug-ralloc --use-non-free --pstack-model=small -c -mpic16 -p18f4520 drvLcd.c  -o${OBJECTDIR}/drvLcd.o
+	
+${OBJECTDIR}/kernel.o: kernel.c  nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} ${OBJECTDIR} 
+	${RM} ${OBJECTDIR}/kernel.o 
+	${MP_CC} --debug-ralloc --use-non-free --pstack-model=small -c -mpic16 -p18f4520 kernel.c  -o${OBJECTDIR}/kernel.o
+	
+${OBJECTDIR}/lcd.o: lcd.c  nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} ${OBJECTDIR} 
+	${RM} ${OBJECTDIR}/lcd.o 
+	${MP_CC} --debug-ralloc --use-non-free --pstack-model=small -c -mpic16 -p18f4520 lcd.c  -o${OBJECTDIR}/lcd.o
+	
+${OBJECTDIR}/ctrl_dd.o: ctrl_dd.c  nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} ${OBJECTDIR} 
+	${RM} ${OBJECTDIR}/ctrl_dd.o 
+	${MP_CC} --debug-ralloc --use-non-free --pstack-model=small -c -mpic16 -p18f4520 ctrl_dd.c  -o${OBJECTDIR}/ctrl_dd.o
 	
 endif
 
