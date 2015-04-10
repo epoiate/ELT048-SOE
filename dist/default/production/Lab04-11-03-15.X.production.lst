@@ -1,0 +1,741 @@
+gplink-1.2.0 #980 (May 17 2013)
+Copyright (c) 1998-2013 gputils project
+Listing File Generated: 3-11-2015  08:56:26
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.3.0 #8604 (May 11 2013) (MINGW32)
+                                           ; This file was generated Wed Mar 11 08:56:26 2015
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           	CONFIG	MCLRE=ON
+                                           	CONFIG	OSC=HS
+                                           	CONFIG	WDT=OFF
+                                           	CONFIG	LVP=OFF
+                                           	CONFIG	DEBUG=OFF
+                                           	CONFIG	WDTPS=1
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_tst1
+                                           	global	_tst2
+                                           	global	_tst3
+                                           	global	_main
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern	_kernelAddProc
+                                           	extern	_kernelInit
+                                           	extern	_kernelLoop
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           WREG	equ	0xfe8
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           
+                                           udata_main_0	udata
+                                           _main_p1_1_12	res	3
+                                           
+                                           udata_main_1	udata
+                                           _main_p2_1_12	res	3
+                                           
+                                           udata_main_2	udata
+                                           _main_p3_1_12	res	3
+                                           
+                                           ;--------------------------------------------------------
+                                           ; interrupt vector
+                                           ;--------------------------------------------------------
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_main__main	code
+                                           _main:
+                                           ;	.line	25; main.c	process p1 = {tst1};
+0008f4   0ec4     movlw   0xc4             	MOVLW	LOW(_tst1)
+0008f6   0100     movlb   0                	BANKSEL	_main_p1_1_12
+0008f8   6fae     movwf   0xae, 0x1        	MOVWF	_main_p1_1_12, B
+0008fa   0e0a     movlw   0xa              	MOVLW	HIGH(_tst1)
+0008fc   0100     movlb   0                	BANKSEL	(_main_p1_1_12 + 1)
+0008fe   6faf     movwf   0xaf, 0x1        	MOVWF	(_main_p1_1_12 + 1), B
+000900   0e00     movlw   0                	MOVLW	UPPER(_tst1)
+000902   0100     movlb   0                	BANKSEL	(_main_p1_1_12 + 2)
+000904   6fb0     movwf   0xb0, 0x1        	MOVWF	(_main_p1_1_12 + 2), B
+                                           ;	.line	26; main.c	process p2 = {tst2};
+000906   0e9a     movlw   0x9a             	MOVLW	LOW(_tst2)
+000908   0100     movlb   0                	BANKSEL	_main_p2_1_12
+00090a   6fb1     movwf   0xb1, 0x1        	MOVWF	_main_p2_1_12, B
+00090c   0e0a     movlw   0xa              	MOVLW	HIGH(_tst2)
+00090e   0100     movlb   0                	BANKSEL	(_main_p2_1_12 + 1)
+000910   6fb2     movwf   0xb2, 0x1        	MOVWF	(_main_p2_1_12 + 1), B
+000912   0e00     movlw   0                	MOVLW	UPPER(_tst2)
+000914   0100     movlb   0                	BANKSEL	(_main_p2_1_12 + 2)
+000916   6fb3     movwf   0xb3, 0x1        	MOVWF	(_main_p2_1_12 + 2), B
+                                           ;	.line	27; main.c	process p3 = {tst3};
+000918   0e70     movlw   0x70             	MOVLW	LOW(_tst3)
+00091a   0100     movlb   0                	BANKSEL	_main_p3_1_12
+00091c   6fb4     movwf   0xb4, 0x1        	MOVWF	_main_p3_1_12, B
+00091e   0e0a     movlw   0xa              	MOVLW	HIGH(_tst3)
+000920   0100     movlb   0                	BANKSEL	(_main_p3_1_12 + 1)
+000922   6fb5     movwf   0xb5, 0x1        	MOVWF	(_main_p3_1_12 + 1), B
+000924   0e00     movlw   0                	MOVLW	UPPER(_tst3)
+000926   0100     movlb   0                	BANKSEL	(_main_p3_1_12 + 2)
+000928   6fb6     movwf   0xb6, 0x1        	MOVWF	(_main_p3_1_12 + 2), B
+                                           ;	.line	28; main.c	TRISD = 0x00;
+00092a   ee0f     lfsr    0, 0xf95         	LFSR	0x00, 0xf95
+00092c   f095
+00092e   0e00     movlw   0                	MOVLW	0x00
+000930   6eef     movwf   0xef, 0          	MOVWF	INDF0
+                                           ;	.line	29; main.c	kernelInit();
+000932   ec8b     call    0xb16, 0         	CALL	_kernelInit
+000934   f005
+                                           ;	.line	31; main.c	kernelAddProc(&p1);
+000936   0e00     movlw   0                	MOVLW	HIGH(_main_p1_1_12)
+000938   6e01     movwf   0x1, 0           	MOVWF	r0x01
+00093a   0eae     movlw   0xae             	MOVLW	LOW(_main_p1_1_12)
+00093c   6e00     movwf   0, 0             	MOVWF	r0x00
+00093e   0e80     movlw   0x80             	MOVLW	0x80
+000940   6e02     movwf   0x2, 0           	MOVWF	r0x02
+000942   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+000944   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000946   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+000948   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00094a   5000     movf    0, 0, 0          	MOVF	r0x00, W
+00094c   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00094e   ec2b     call    0x656, 0         	CALL	_kernelAddProc
+000950   f003
+000952   0e03     movlw   0x3              	MOVLW	0x03
+000954   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	32; main.c	kernelAddProc(&p2);
+000956   0e00     movlw   0                	MOVLW	HIGH(_main_p2_1_12)
+000958   6e01     movwf   0x1, 0           	MOVWF	r0x01
+00095a   0eb1     movlw   0xb1             	MOVLW	LOW(_main_p2_1_12)
+00095c   6e00     movwf   0, 0             	MOVWF	r0x00
+00095e   0e80     movlw   0x80             	MOVLW	0x80
+000960   6e02     movwf   0x2, 0           	MOVWF	r0x02
+000962   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+000964   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000966   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+000968   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00096a   5000     movf    0, 0, 0          	MOVF	r0x00, W
+00096c   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00096e   ec2b     call    0x656, 0         	CALL	_kernelAddProc
+000970   f003
+000972   0e03     movlw   0x3              	MOVLW	0x03
+000974   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	33; main.c	kernelAddProc(&p3);
+000976   0e00     movlw   0                	MOVLW	HIGH(_main_p3_1_12)
+000978   6e01     movwf   0x1, 0           	MOVWF	r0x01
+00097a   0eb4     movlw   0xb4             	MOVLW	LOW(_main_p3_1_12)
+00097c   6e00     movwf   0, 0             	MOVWF	r0x00
+00097e   0e80     movlw   0x80             	MOVLW	0x80
+000980   6e02     movwf   0x2, 0           	MOVWF	r0x02
+000982   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+000984   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000986   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+000988   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00098a   5000     movf    0, 0, 0          	MOVF	r0x00, W
+00098c   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00098e   ec2b     call    0x656, 0         	CALL	_kernelAddProc
+000990   f003
+000992   0e03     movlw   0x3              	MOVLW	0x03
+000994   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	34; main.c	kernelLoop();
+000996   ecce     call    0x39c, 0         	CALL	_kernelLoop
+000998   f001
+00099a   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_main__tst3	code
+                                           _tst3:
+                                           ;	.line	18; main.c	char tst3(void) {
+000a70   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000a72   ffe5
+000a74   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000a76   ffd9
+000a78   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+000a7a   ffe5
+                                           ;	.line	19; main.c	BitFlp(PORTD,2);
+000a7c   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+000a7e   f083
+000a80   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+000a82   f000
+000a84   7400     btg     0, 0x2, 0        	BTG	r0x00, 2
+000a86   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+000a88   f083
+000a8a   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+000a8c   ffef
+                                           ;	.line	20; main.c	return REPEAT;
+000a8e   0e02     movlw   0x2              	MOVLW	0x02
+000a90   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+000a92   f000
+000a94   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000a96   ffd9
+000a98   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_main__tst2	code
+                                           _tst2:
+                                           ;	.line	13; main.c	char tst2(void) {
+000a9a   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000a9c   ffe5
+000a9e   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000aa0   ffd9
+000aa2   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+000aa4   ffe5
+                                           ;	.line	14; main.c	BitFlp(PORTD,1);
+000aa6   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+000aa8   f083
+000aaa   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+000aac   f000
+000aae   7200     btg     0, 0x1, 0        	BTG	r0x00, 1
+000ab0   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+000ab2   f083
+000ab4   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+000ab6   ffef
+                                           ;	.line	15; main.c	return SUCCESS;
+000ab8   6ae8     clrf    0xe8, 0          	CLRF	WREG
+000aba   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+000abc   f000
+000abe   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000ac0   ffd9
+000ac2   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_main__tst1	code
+                                           _tst1:
+                                           ;	.line	8; main.c	char tst1(void) {
+000ac4   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000ac6   ffe5
+000ac8   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000aca   ffd9
+000acc   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+000ace   ffe5
+                                           ;	.line	9; main.c	BitFlp(PORTD,0);
+000ad0   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+000ad2   f083
+000ad4   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+000ad6   f000
+000ad8   7000     btg     0, 0, 0          	BTG	r0x00, 0
+000ada   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+000adc   f083
+000ade   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+000ae0   ffef
+                                           ;	.line	10; main.c	return REPEAT;
+000ae2   0e02     movlw   0x2              	MOVLW	0x02
+000ae4   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+000ae6   f000
+000ae8   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000aea   ffd9
+000aec   0012     return  0                	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  294 (0x0126) bytes ( 0.22%)
+                                           ;           	  147 (0x0093) words
+                                           ; udata size:	    9 (0x0009) bytes ( 0.70%)
+                                           ; access size:	    3 (0x0003) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.3.0 #8604 (May 11 2013) (MINGW32)
+                                           ; This file was generated Wed Mar 11 08:56:26 2015
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_kernelAddProc
+                                           	global	_kernelInit
+                                           	global	_kernelLoop
+                                           	global	_pool
+                                           	global	_ini
+                                           	global	_fim
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern	__gptrget3
+                                           	extern	__modsint
+                                           	extern	___fsadd
+                                           	extern	___fslt
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           PCL	equ	0xff9
+                                           PCLATH	equ	0xffa
+                                           PCLATU	equ	0xffb
+                                           INTCON	equ	0xff2
+                                           WREG	equ	0xfe8
+                                           TOSL	equ	0xffd
+                                           TOSH	equ	0xffe
+                                           TOSU	equ	0xfff
+                                           FSR0L	equ	0xfe9
+                                           FSR0H	equ	0xfea
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTINC0	equ	0xfee
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PLUSW2	equ	0xfdb
+                                           PRODL	equ	0xff3
+                                           PRODH	equ	0xff4
+                                           
+                                           
+                                           	idata
+                                           _ini	db	0x00
+                                           _fim	db	0x00
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           r0x04	res	1
+                                           r0x05	res	1
+                                           r0x06	res	1
+                                           
+                                           udata_kernel_0	udata
+                                           _pool	res	30
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_kernel__kernelLoop	code
+                                           _kernelLoop:
+                                           ;	.line	34; kernel.c	void kernelLoop(void) {
+00039c   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+00039e   ffe5
+0003a0   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0003a2   ffd9
+0003a4   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+0003a6   ffe5
+0003a8   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+0003aa   ffe5
+0003ac   c002     movff   0x2, 0xfe5       	MOVFF	r0x02, POSTDEC1
+0003ae   ffe5
+0003b0   c003     movff   0x3, 0xfe5       	MOVFF	r0x03, POSTDEC1
+0003b2   ffe5
+0003b4   c004     movff   0x4, 0xfe5       	MOVFF	r0x04, POSTDEC1
+0003b6   ffe5
+                                           _00131_DS_:
+0003b8   0100     movlb   0                	BANKSEL	_ini
+                                           ;	.line	39; kernel.c	if (ini != fim) {
+0003ba   51b7     movf    0xb7, 0, 0x1     	MOVF	_ini, W, B
+0003bc   0100     movlb   0                	BANKSEL	_fim
+0003be   19b8     xorwf   0xb8, 0, 0x1     	XORWF	_fim, W, B
+0003c0   e101     bnz     0x3c4            	BNZ	_00151_DS_
+0003c2   d076     bra     0x4b0            	BRA	_00126_DS_
+                                           ; ;multiply lit val:0x03 by variable _ini and store in r0x00
+                                           _00151_DS_:
+0003c4   0100     movlb   0                	BANKSEL	_ini
+                                           ;	.line	41; kernel.c	if (pool[ini]->function() == REPEAT) {
+0003c6   51b7     movf    0xb7, 0, 0x1     	MOVF	_ini, W, B
+0003c8   0d03     mullw   0x3              	MULLW	0x03
+0003ca   50f4     movf    0xf4, 0, 0       	MOVF	PRODH, W
+0003cc   0100     movlb   0                	BANKSEL	_ini
+0003ce   bfb7     btfsc   0xb7, 0x7, 0x1   	BTFSC	_ini, 7, B
+0003d0   0803     sublw   0x3              	SUBLW	0x03
+0003d2   6e01     movwf   0x1, 0           	MOVWF	r0x01
+0003d4   cff3     movff   0xff3, 0         	MOVFF	PRODL, r0x00
+0003d6   f000
+0003d8   0e80     movlw   0x80             	MOVLW	LOW(_pool)
+0003da   2600     addwf   0, 0x1, 0        	ADDWF	r0x00, F
+0003dc   0e00     movlw   0                	MOVLW	HIGH(_pool)
+0003de   2201     addwfc  0x1, 0x1, 0      	ADDWFC	r0x01, F
+0003e0   c000     movff   0, 0xfe9         	MOVFF	r0x00, FSR0L
+0003e2   ffe9
+0003e4   c001     movff   0x1, 0xfea       	MOVFF	r0x01, FSR0H
+0003e6   ffea
+0003e8   cfee     movff   0xfee, 0         	MOVFF	POSTINC0, r0x00
+0003ea   f000
+0003ec   cfee     movff   0xfee, 0x1       	MOVFF	POSTINC0, r0x01
+0003ee   f001
+0003f0   cfef     movff   0xfef, 0x2       	MOVFF	INDF0, r0x02
+0003f2   f002
+0003f4   c000     movff   0, 0xfe9         	MOVFF	r0x00, FSR0L
+0003f6   ffe9
+0003f8   c001     movff   0x1, 0xff3       	MOVFF	r0x01, PRODL
+0003fa   fff3
+0003fc   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+0003fe   ec1d     call    0xa3a, 0         	CALL	__gptrget3
+000400   f005
+000402   6e00     movwf   0, 0             	MOVWF	r0x00
+000404   cff3     movff   0xff3, 0x1       	MOVFF	PRODL, r0x01
+000406   f001
+000408   cff4     movff   0xff4, 0x2       	MOVFF	PRODH, r0x02
+00040a   f002
+00040c   cff2     movff   0xff2, 0xfe5     	MOVFF	INTCON, POSTDEC1
+00040e   ffe5
+000410   9ef2     bcf     0xf2, 0x7, 0     	BCF	INTCON, 7
+000412   0005     push                     	PUSH	
+000414   0e30     movlw   0x30             	MOVLW	LOW(_00152_DS_)
+000416   6efd     movwf   0xfd, 0          	MOVWF	TOSL
+000418   0e04     movlw   0x4              	MOVLW	HIGH(_00152_DS_)
+00041a   6efe     movwf   0xfe, 0          	MOVWF	TOSH
+00041c   0e00     movlw   0                	MOVLW	UPPER(_00152_DS_)
+00041e   6eff     movwf   0xff, 0          	MOVWF	TOSU
+000420   bee4     btfsc   0xe4, 0x7, 0     	BTFSC	PREINC1, 7
+000422   8ef2     bsf     0xf2, 0x7, 0     	BSF	INTCON, 7
+000424   c002     movff   0x2, 0xffb       	MOVFF	r0x02, PCLATU
+000426   fffb
+000428   c001     movff   0x1, 0xffa       	MOVFF	r0x01, PCLATH
+00042a   fffa
+00042c   5000     movf    0, 0, 0          	MOVF	r0x00, W
+00042e   6ef9     movwf   0xf9, 0          	MOVWF	PCL
+                                           _00152_DS_:
+000430   6e00     movwf   0, 0             	MOVWF	r0x00
+000432   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000434   0a02     xorlw   0x2              	XORLW	0x02
+000436   e122     bnz     0x47c            	BNZ	_00124_DS_
+                                           ; ;multiply lit val:0x03 by variable _ini and store in r0x00
+                                           _00154_DS_:
+000438   0100     movlb   0                	BANKSEL	_ini
+                                           ;	.line	42; kernel.c	kernelAddProc(pool[ini]);
+00043a   51b7     movf    0xb7, 0, 0x1     	MOVF	_ini, W, B
+00043c   0d03     mullw   0x3              	MULLW	0x03
+00043e   50f4     movf    0xf4, 0, 0       	MOVF	PRODH, W
+000440   0100     movlb   0                	BANKSEL	_ini
+000442   bfb7     btfsc   0xb7, 0x7, 0x1   	BTFSC	_ini, 7, B
+000444   0803     sublw   0x3              	SUBLW	0x03
+000446   6e01     movwf   0x1, 0           	MOVWF	r0x01
+000448   cff3     movff   0xff3, 0         	MOVFF	PRODL, r0x00
+00044a   f000
+00044c   0e80     movlw   0x80             	MOVLW	LOW(_pool)
+00044e   2600     addwf   0, 0x1, 0        	ADDWF	r0x00, F
+000450   0e00     movlw   0                	MOVLW	HIGH(_pool)
+000452   2201     addwfc  0x1, 0x1, 0      	ADDWFC	r0x01, F
+000454   c000     movff   0, 0xfe9         	MOVFF	r0x00, FSR0L
+000456   ffe9
+000458   c001     movff   0x1, 0xfea       	MOVFF	r0x01, FSR0H
+00045a   ffea
+00045c   cfee     movff   0xfee, 0         	MOVFF	POSTINC0, r0x00
+00045e   f000
+000460   cfee     movff   0xfee, 0x1       	MOVFF	POSTINC0, r0x01
+000462   f001
+000464   cfef     movff   0xfef, 0x2       	MOVFF	INDF0, r0x02
+000466   f002
+000468   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+00046a   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00046c   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+00046e   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000470   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000472   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000474   ec2b     call    0x656, 0         	CALL	_kernelAddProc
+000476   f003
+000478   0e03     movlw   0x3              	MOVLW	0x03
+00047a   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           _00124_DS_:
+                                           ;	.line	45; kernel.c	ini = (ini + 1) % POOLSIZE;
+00047c   c0b7     movff   0xb7, 0          	MOVFF	_ini, r0x00
+00047e   f000
+000480   6a01     clrf    0x1, 0           	CLRF	r0x01
+000482   0100     movlb   0                	BANKSEL	_ini
+000484   bfb7     btfsc   0xb7, 0x7, 0x1   	BTFSC	_ini, 7, B
+000486   6801     setf    0x1, 0           	SETF	r0x01
+000488   4a00     infsnz  0, 0x1, 0        	INFSNZ	r0x00, F
+00048a   2a01     incf    0x1, 0x1, 0      	INCF	r0x01, F
+00048c   0e00     movlw   0                	MOVLW	0x00
+00048e   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000490   0e0a     movlw   0xa              	MOVLW	0x0a
+000492   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000494   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+000496   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000498   5000     movf    0, 0, 0          	MOVF	r0x00, W
+00049a   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00049c   ecaf     call    0x75e, 0         	CALL	__modsint
+00049e   f003
+0004a0   6e00     movwf   0, 0             	MOVWF	r0x00
+0004a2   cff3     movff   0xff3, 0x1       	MOVFF	PRODL, r0x01
+0004a4   f001
+0004a6   0e04     movlw   0x4              	MOVLW	0x04
+0004a8   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+0004aa   5000     movf    0, 0, 0          	MOVF	r0x00, W
+0004ac   0100     movlb   0                	BANKSEL	_ini
+0004ae   6fb7     movwf   0xb7, 0x1        	MOVWF	_ini, B
+                                           _00126_DS_:
+                                           ;	.line	48; kernel.c	for (i = 0;i < 1000; i++);
+0004b0   6a00     clrf    0, 0             	CLRF	r0x00
+0004b2   6a01     clrf    0x1, 0           	CLRF	r0x01
+0004b4   6a02     clrf    0x2, 0           	CLRF	r0x02
+0004b6   6a03     clrf    0x3, 0           	CLRF	r0x03
+                                           _00130_DS_:
+0004b8   0e3f     movlw   0x3f             	MOVLW	0x3f
+0004ba   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004bc   0e80     movlw   0x80             	MOVLW	0x80
+0004be   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004c0   0e00     movlw   0                	MOVLW	0x00
+0004c2   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004c4   0e00     movlw   0                	MOVLW	0x00
+0004c6   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004c8   5003     movf    0x3, 0, 0        	MOVF	r0x03, W
+0004ca   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004cc   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+0004ce   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004d0   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+0004d2   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004d4   5000     movf    0, 0, 0          	MOVF	r0x00, W
+0004d6   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004d8   ec02     call    0x4, 0           	CALL	___fsadd
+0004da   f000
+0004dc   6e00     movwf   0, 0             	MOVWF	r0x00
+0004de   cff3     movff   0xff3, 0x1       	MOVFF	PRODL, r0x01
+0004e0   f001
+0004e2   cff4     movff   0xff4, 0x2       	MOVFF	PRODH, r0x02
+0004e4   f002
+0004e6   cfe9     movff   0xfe9, 0x3       	MOVFF	FSR0L, r0x03
+0004e8   f003
+0004ea   0e08     movlw   0x8              	MOVLW	0x08
+0004ec   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+0004ee   0e44     movlw   0x44             	MOVLW	0x44
+0004f0   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004f2   0e7a     movlw   0x7a             	MOVLW	0x7a
+0004f4   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004f6   0e00     movlw   0                	MOVLW	0x00
+0004f8   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004fa   0e00     movlw   0                	MOVLW	0x00
+0004fc   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0004fe   5003     movf    0x3, 0, 0        	MOVF	r0x03, W
+000500   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000502   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+000504   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000506   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+000508   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00050a   5000     movf    0, 0, 0          	MOVF	r0x00, W
+00050c   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00050e   ec9c     call    0x538, 0         	CALL	___fslt
+000510   f002
+000512   6e04     movwf   0x4, 0           	MOVWF	r0x04
+000514   0e08     movlw   0x8              	MOVLW	0x08
+000516   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+000518   5004     movf    0x4, 0, 0        	MOVF	r0x04, W
+00051a   e1ce     bnz     0x4b8            	BNZ	_00130_DS_
+00051c   d74d     bra     0x3b8            	BRA	_00131_DS_
+00051e   cfe4     movff   0xfe4, 0x4       	MOVFF	PREINC1, r0x04
+000520   f004
+000522   cfe4     movff   0xfe4, 0x3       	MOVFF	PREINC1, r0x03
+000524   f003
+000526   cfe4     movff   0xfe4, 0x2       	MOVFF	PREINC1, r0x02
+000528   f002
+00052a   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+00052c   f001
+00052e   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+000530   f000
+000532   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000534   ffd9
+000536   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_kernel__kernelInit	code
+                                           _kernelInit:
+                                           ;	.line	26; kernel.c	char kernelInit(void) {
+000b16   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000b18   ffe5
+000b1a   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000b1c   ffd9
+000b1e   0100     movlb   0                	BANKSEL	_ini
+                                           ;	.line	27; kernel.c	ini = 0;
+000b20   6bb7     clrf    0xb7, 0x1        	CLRF	_ini, B
+000b22   0100     movlb   0                	BANKSEL	_fim
+                                           ;	.line	28; kernel.c	fim = 0;
+000b24   6bb8     clrf    0xb8, 0x1        	CLRF	_fim, B
+                                           ;	.line	29; kernel.c	return SUCCESS;
+000b26   6ae8     clrf    0xe8, 0          	CLRF	WREG
+000b28   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000b2a   ffd9
+000b2c   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_kernel__kernelAddProc	code
+                                           _kernelAddProc:
+                                           ;	.line	14; kernel.c	char kernelAddProc(process *newProc) {
+000656   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000658   ffe5
+00065a   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00065c   ffd9
+00065e   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+000660   ffe5
+000662   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+000664   ffe5
+000666   c002     movff   0x2, 0xfe5       	MOVFF	r0x02, POSTDEC1
+000668   ffe5
+00066a   c003     movff   0x3, 0xfe5       	MOVFF	r0x03, POSTDEC1
+00066c   ffe5
+00066e   c004     movff   0x4, 0xfe5       	MOVFF	r0x04, POSTDEC1
+000670   ffe5
+000672   c005     movff   0x5, 0xfe5       	MOVFF	r0x05, POSTDEC1
+000674   ffe5
+000676   c006     movff   0x6, 0xfe5       	MOVFF	r0x06, POSTDEC1
+000678   ffe5
+00067a   0e02     movlw   0x2              	MOVLW	0x02
+00067c   cfdb     movff   0xfdb, 0         	MOVFF	PLUSW2, r0x00
+00067e   f000
+000680   0e03     movlw   0x3              	MOVLW	0x03
+000682   cfdb     movff   0xfdb, 0x1       	MOVFF	PLUSW2, r0x01
+000684   f001
+000686   0e04     movlw   0x4              	MOVLW	0x04
+000688   cfdb     movff   0xfdb, 0x2       	MOVFF	PLUSW2, r0x02
+00068a   f002
+                                           ;	.line	16; kernel.c	if (((fim + 1) % POOLSIZE) != ini) {
+00068c   c0b8     movff   0xb8, 0x3        	MOVFF	_fim, r0x03
+00068e   f003
+000690   6a04     clrf    0x4, 0           	CLRF	r0x04
+000692   0100     movlb   0                	BANKSEL	_fim
+000694   bfb8     btfsc   0xb8, 0x7, 0x1   	BTFSC	_fim, 7, B
+000696   6804     setf    0x4, 0           	SETF	r0x04
+000698   4a03     infsnz  0x3, 0x1, 0      	INFSNZ	r0x03, F
+00069a   2a04     incf    0x4, 0x1, 0      	INCF	r0x04, F
+00069c   0e00     movlw   0                	MOVLW	0x00
+00069e   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0006a0   0e0a     movlw   0xa              	MOVLW	0x0a
+0006a2   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0006a4   5004     movf    0x4, 0, 0        	MOVF	r0x04, W
+0006a6   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0006a8   5003     movf    0x3, 0, 0        	MOVF	r0x03, W
+0006aa   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0006ac   ecaf     call    0x75e, 0         	CALL	__modsint
+0006ae   f003
+0006b0   6e03     movwf   0x3, 0           	MOVWF	r0x03
+0006b2   cff3     movff   0xff3, 0x4       	MOVFF	PRODL, r0x04
+0006b4   f004
+0006b6   0e04     movlw   0x4              	MOVLW	0x04
+0006b8   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+0006ba   c0b7     movff   0xb7, 0x5        	MOVFF	_ini, r0x05
+0006bc   f005
+0006be   6a06     clrf    0x6, 0           	CLRF	r0x06
+0006c0   0100     movlb   0                	BANKSEL	_ini
+0006c2   bfb7     btfsc   0xb7, 0x7, 0x1   	BTFSC	_ini, 7, B
+0006c4   6806     setf    0x6, 0           	SETF	r0x06
+0006c6   5003     movf    0x3, 0, 0        	MOVF	r0x03, W
+0006c8   1805     xorwf   0x5, 0, 0        	XORWF	r0x05, W
+0006ca   e103     bnz     0x6d2            	BNZ	_00113_DS_
+0006cc   5004     movf    0x4, 0, 0        	MOVF	r0x04, W
+0006ce   1806     xorwf   0x6, 0, 0        	XORWF	r0x06, W
+0006d0   e034     bz      0x73a            	BZ	_00106_DS_
+                                           ; ;multiply lit val:0x03 by variable _fim and store in r0x03
+                                           _00113_DS_:
+0006d2   0100     movlb   0                	BANKSEL	_fim
+                                           ;	.line	17; kernel.c	pool[fim] = newProc;
+0006d4   51b8     movf    0xb8, 0, 0x1     	MOVF	_fim, W, B
+0006d6   0d03     mullw   0x3              	MULLW	0x03
+0006d8   50f4     movf    0xf4, 0, 0       	MOVF	PRODH, W
+0006da   0100     movlb   0                	BANKSEL	_fim
+0006dc   bfb8     btfsc   0xb8, 0x7, 0x1   	BTFSC	_fim, 7, B
+0006de   0803     sublw   0x3              	SUBLW	0x03
+0006e0   6e04     movwf   0x4, 0           	MOVWF	r0x04
+0006e2   cff3     movff   0xff3, 0x3       	MOVFF	PRODL, r0x03
+0006e4   f003
+0006e6   0e80     movlw   0x80             	MOVLW	LOW(_pool)
+0006e8   2603     addwf   0x3, 0x1, 0      	ADDWF	r0x03, F
+0006ea   0e00     movlw   0                	MOVLW	HIGH(_pool)
+0006ec   2204     addwfc  0x4, 0x1, 0      	ADDWFC	r0x04, F
+0006ee   c003     movff   0x3, 0xfe9       	MOVFF	r0x03, FSR0L
+0006f0   ffe9
+0006f2   c004     movff   0x4, 0xfea       	MOVFF	r0x04, FSR0H
+0006f4   ffea
+0006f6   c000     movff   0, 0xfee         	MOVFF	r0x00, POSTINC0
+0006f8   ffee
+0006fa   c001     movff   0x1, 0xfee       	MOVFF	r0x01, POSTINC0
+0006fc   ffee
+0006fe   c002     movff   0x2, 0xfef       	MOVFF	r0x02, INDF0
+000700   ffef
+                                           ;	.line	19; kernel.c	fim = (fim + 1) % POOLSIZE;
+000702   c0b8     movff   0xb8, 0          	MOVFF	_fim, r0x00
+000704   f000
+000706   6a01     clrf    0x1, 0           	CLRF	r0x01
+000708   0100     movlb   0                	BANKSEL	_fim
+00070a   bfb8     btfsc   0xb8, 0x7, 0x1   	BTFSC	_fim, 7, B
+00070c   6801     setf    0x1, 0           	SETF	r0x01
+00070e   4a00     infsnz  0, 0x1, 0        	INFSNZ	r0x00, F
+000710   2a01     incf    0x1, 0x1, 0      	INCF	r0x01, F
+000712   0e00     movlw   0                	MOVLW	0x00
+000714   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000716   0e0a     movlw   0xa              	MOVLW	0x0a
+000718   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00071a   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+00071c   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00071e   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000720   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000722   ecaf     call    0x75e, 0         	CALL	__modsint
+000724   f003
+000726   6e00     movwf   0, 0             	MOVWF	r0x00
+000728   cff3     movff   0xff3, 0x1       	MOVFF	PRODL, r0x01
+00072a   f001
+00072c   0e04     movlw   0x4              	MOVLW	0x04
+00072e   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+000730   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000732   0100     movlb   0                	BANKSEL	_fim
+000734   6fb8     movwf   0xb8, 0x1        	MOVWF	_fim, B
+                                           ;	.line	21; kernel.c	return SUCCESS;
+000736   6ae8     clrf    0xe8, 0          	CLRF	WREG
+000738   d001     bra     0x73c            	BRA	_00107_DS_
+                                           _00106_DS_:
+                                           ;	.line	23; kernel.c	return FAIL;
+00073a   0e01     movlw   0x1              	MOVLW	0x01
+                                           _00107_DS_:
+00073c   cfe4     movff   0xfe4, 0x6       	MOVFF	PREINC1, r0x06
+00073e   f006
+000740   cfe4     movff   0xfe4, 0x5       	MOVFF	PREINC1, r0x05
+000742   f005
+000744   cfe4     movff   0xfe4, 0x4       	MOVFF	PREINC1, r0x04
+000746   f004
+000748   cfe4     movff   0xfe4, 0x3       	MOVFF	PREINC1, r0x03
+00074a   f003
+00074c   cfe4     movff   0xfe4, 0x2       	MOVFF	PREINC1, r0x02
+00074e   f002
+000750   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+000752   f001
+000754   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+000756   f000
+000758   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+00075a   ffd9
+00075c   0012     return  0                	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  700 (0x02bc) bytes ( 0.53%)
+                                           ;           	  350 (0x015e) words
+                                           ; udata size:	   30 (0x001e) bytes ( 2.34%)
+                                           ; access size:	    7 (0x0007) bytes
+                                           
+                                           
+                                           	end
