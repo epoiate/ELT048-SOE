@@ -1,27 +1,7 @@
 #include "kernel.h"
 
-
-//definição do buffer circular
-#define POOLSIZE 10
-
-process *pool[POOLSIZE];
-
-//definição dos "ponteiros" de acesso
-char ini = 0, fim = 0;
-
-//função de adição de "process" no buffer
-
-char kernelAddProc(process *newProc) {
-    //checking for free space
-    if (((fim + 1) % POOLSIZE) != ini) {
-        pool[fim] = newProc;
-
-        fim = (fim + 1) % POOLSIZE;
-
-        return SUCCESS;
-    }
-    return FAIL;
-}
+process* pool[POOLSIZE];
+char ini, fim;
 
 char kernelInit(void) {
     ini = 0;
@@ -29,22 +9,58 @@ char kernelInit(void) {
     return SUCCESS;
 }
 
-//função de execução do "process" no buffer
+char kernelAddProc(process* newProc) {
+    //checking for free space
+    if (((fim + 1) % POOLSIZE) != ini) {
+        pool[fim] = newProc;
+        pool[fim]->start += newProc->period;
+        fim = (fim + 1) % POOLSIZE;
+        return SUCCESS;
+    }
+    return FAIL;
+}
 
 void kernelLoop(void) {
-        float i = 0;
-        for (;;) {
-        
+    char next, j;
+    process * tempProc;
+    for (;;) {
         //Do we have any process to execute?
         if (ini != fim) {
-            //check if there is need to reschedule
+            //Find the process with the lowest timer
+            next = ini;
+            j = (ini + 1) % POOLSIZE;
+            while (j != fim) {
+                if (pool[j]->start < pool[next]->start) {
+                    next = j;
+                }
+                j = (j + 1) % POOLSIZE;
+            }
+            //Exchanging processes positions
+            tempProc = pool[next];
+            pool[next] = pool[ini];
+            pool[ini] = tempProc;
+            //waiting for the process to be ready
+            while (pool[ini]->start > 0) {
+                //Great place for energy saving
+            }
             if (pool[ini]->function() == REPEAT) {
                 kernelAddProc(pool[ini]);
             }
-            //prepare to get the next process;
             ini = (ini + 1) % POOLSIZE;
         }
 
-        for (i = 0;i < 1000; i++);
+    }
+}
+
+#define MIN_INT -30000
+
+void KernelClock(void) {
+    unsigned char i;
+    i = ini;
+    while (i != fim) {
+        if ((pool[i]->start)>(MIN_INT)) {
+            pool[i]->start--;
+        }
+        i = (i + 1) % POOLSIZE;
     }
 }

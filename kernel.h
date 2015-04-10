@@ -1,37 +1,36 @@
 /* 
  * File:   kernel.h
- * Author: aluno
+ * Author: Rodrigo
  *
- * Created on 11 de Março de 2015, 06:48
+ * Created on 25 de Março de 2015, 07:20
  */
 
 #ifndef KERNEL_H
 #define	KERNEL_H
 
-//function pointer declaration
-typedef char(*ptrFunc)(void);
-
 //return code
-#define SUCCESS 0
-#define FAIL 1
-#define REPEAT 2
-#define DRIVE_ERROR
+#define SUCCESS  0
+#define FAIL     1
+#define REPEAT   2
 
-//definição da estrutura
+#define POOLSIZE 10
+//function pointer declaration
+typedef char (*ptrFunc)(void);
+
+//process struct
 
 typedef struct {
     ptrFunc function;
+    int period;
+    int start;
 } process;
 
-//função de adição de ?process? no buffer
-//Atenção na mudança dos parâmetros
-char kernelAddProc(process *newProc);
-
-//função de remoção de um ?process? do buffer
 char kernelInit(void);
-
-//função de execução do ?process? no buffer
+char kernelAddProc(process* newProc);
 void kernelLoop(void);
+
+void KernelClock(void);
+
 
 #endif	/* KERNEL_H */
 

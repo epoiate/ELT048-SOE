@@ -1,4 +1,4 @@
-gpasm-1.2.0 #980 (May 17 2013) build/default/   3-11-2015  08:56:26         PAGE  1
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7,7 +7,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00001 ;--------------------------------------------------------
                       00002 ; File Created by SDCC : free open source ANSI-C Compiler
                       00003 ; Version 3.3.0 #8604 (May 11 2013) (MINGW32)
-                      00004 ; This file was generated Wed Mar 11 08:56:26 2015
+                      00004 ; This file was generated Wed Apr 01 10:06:20 2015
                       00005 ;--------------------------------------------------------
                       00006 ; PIC16 port for the Microchip 16-bit core micros
                       00007 ;--------------------------------------------------------
@@ -24,49 +24,49 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00018 ;--------------------------------------------------------
                       00019 ; public variables in this module
                       00020 ;--------------------------------------------------------
-  0000                00021         global  _tst1
-  0000                00022         global  _tst2
-  0000                00023         global  _tst3
-  0000                00024         global  _main
-                      00025 
-                      00026 ;--------------------------------------------------------
-                      00027 ; extern variables in this module
-                      00028 ;--------------------------------------------------------
-  0000                00029         extern  _kernelAddProc
-  0000                00030         extern  _kernelInit
-  0000                00031         extern  _kernelLoop
-                      00032 
-                      00033 ;--------------------------------------------------------
-                      00034 ;       Equates to used internal registers
-                      00035 ;--------------------------------------------------------
-  00000FE8            00036 WREG    equ     0xfe8
-  00000FE1            00037 FSR1L   equ     0xfe1
-  00000FD9            00038 FSR2L   equ     0xfd9
-  00000FEF            00039 INDF0   equ     0xfef
-  00000FE5            00040 POSTDEC1        equ     0xfe5
-  00000FE4            00041 PREINC1 equ     0xfe4
-                      00042 
-                      00043 
-                      00044 ; Internal registers
-                      00045 .registers      udata_ovr       0x0000
-000000                00046 r0x00   res     1
-000001                00047 r0x01   res     1
-000002                00048 r0x02   res     1
-                      00049 
-                      00050 udata_main_0    udata
-000000                00051 _main_p1_1_12   res     3
-                      00052 
-                      00053 udata_main_1    udata
-gpasm-1.2.0 #980 (May 17 2013) build/default/   3-11-2015  08:56:26         PAGE  2
+  0000                00021         global  _main
+                      00022 
+                      00023 ;--------------------------------------------------------
+                      00024 ; extern variables in this module
+                      00025 ;--------------------------------------------------------
+  0000                00026         extern  __gptrget3
+  0000                00027         extern  _getLedDriver
+                      00028 
+                      00029 ;--------------------------------------------------------
+                      00030 ;       Equates to used internal registers
+                      00031 ;--------------------------------------------------------
+  00000FF9            00032 PCL     equ     0xff9
+  00000FFA            00033 PCLATH  equ     0xffa
+  00000FFB            00034 PCLATU  equ     0xffb
+  00000FF2            00035 INTCON  equ     0xff2
+  00000FFD            00036 TOSL    equ     0xffd
+  00000FFE            00037 TOSH    equ     0xffe
+  00000FFF            00038 TOSU    equ     0xfff
+  00000FE9            00039 FSR0L   equ     0xfe9
+  00000FE1            00040 FSR1L   equ     0xfe1
+  00000FE5            00041 POSTDEC1        equ     0xfe5
+  00000FE4            00042 PREINC1 equ     0xfe4
+  00000FF3            00043 PRODL   equ     0xff3
+  00000FF4            00044 PRODH   equ     0xff4
+                      00045 
+                      00046 
+                      00047 ; Internal registers
+                      00048 .registers      udata_ovr       0x0000
+000000                00049 r0x00   res     1
+000001                00050 r0x01   res     1
+000002                00051 r0x02   res     1
+000003                00052 r0x03   res     1
+000004                00053 r0x04   res     1
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-000000                00054 _main_p2_1_12   res     3
-                      00055 
-                      00056 udata_main_2    udata
-000000                00057 _main_p3_1_12   res     3
+000005                00054 r0x05   res     1
+000006                00055 r0x06   res     1
+000007                00056 r0x07   res     1
+000008                00057 r0x08   res     1
                       00058 
                       00059 ;--------------------------------------------------------
                       00060 ; interrupt vector
@@ -79,205 +79,215 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00067 ; ; Starting pCode block
                       00068 S_main__main    code
 000000                00069 _main:
-                      00070 ;       .line   25; main.c      process p1 = {tst1};
-000000 0E??           00071         MOVLW   LOW(_tst1)
-000002 ????           00072         BANKSEL _main_p1_1_12
-000004 6F??           00073         MOVWF   _main_p1_1_12, B
-000006 0E??           00074         MOVLW   HIGH(_tst1)
-000008 ????           00075         BANKSEL (_main_p1_1_12 + 1)
-00000A 6F??           00076         MOVWF   (_main_p1_1_12 + 1), B
-00000C 0E??           00077         MOVLW   UPPER(_tst1)
-00000E ????           00078         BANKSEL (_main_p1_1_12 + 2)
-000010 6F??           00079         MOVWF   (_main_p1_1_12 + 2), B
-                      00080 ;       .line   26; main.c      process p2 = {tst2};
-000012 0E??           00081         MOVLW   LOW(_tst2)
-000014 ????           00082         BANKSEL _main_p2_1_12
-000016 6F??           00083         MOVWF   _main_p2_1_12, B
-000018 0E??           00084         MOVLW   HIGH(_tst2)
-00001A ????           00085         BANKSEL (_main_p2_1_12 + 1)
-00001C 6F??           00086         MOVWF   (_main_p2_1_12 + 1), B
-00001E 0E??           00087         MOVLW   UPPER(_tst2)
-000020 ????           00088         BANKSEL (_main_p2_1_12 + 2)
-000022 6F??           00089         MOVWF   (_main_p2_1_12 + 2), B
-                      00090 ;       .line   27; main.c      process p3 = {tst3};
-000024 0E??           00091         MOVLW   LOW(_tst3)
-000026 ????           00092         BANKSEL _main_p3_1_12
-000028 6F??           00093         MOVWF   _main_p3_1_12, B
-00002A 0E??           00094         MOVLW   HIGH(_tst3)
-00002C ????           00095         BANKSEL (_main_p3_1_12 + 1)
-00002E 6F??           00096         MOVWF   (_main_p3_1_12 + 1), B
-000030 0E??           00097         MOVLW   UPPER(_tst3)
-000032 ????           00098         BANKSEL (_main_p3_1_12 + 2)
-000034 6F??           00099         MOVWF   (_main_p3_1_12 + 2), B
-                      00100 ;       .line   28; main.c      TRISD = 0x00;
-000036 EE0F F095      00101         LFSR    0x00, 0xf95
-00003A 0E00           00102         MOVLW   0x00
-00003C 6EEF           00103         MOVWF   INDF0
-                      00104 ;       .line   29; main.c      kernelInit();
-00003E EC?? F0??      00105         CALL    _kernelInit
-                      00106 ;       .line   31; main.c      kernelAddProc(&p1);
-gpasm-1.2.0 #980 (May 17 2013) build/default/   3-11-2015  08:56:26         PAGE  3
+                      00070 ;       .line   8; main.c       led = getLedDriver();
+000000 EC?? F0??      00071         CALL    _getLedDriver
+000004 6E??           00072         MOVWF   r0x00
+000006 CFF3 F000      00073         MOVFF   PRODL, r0x01
+00000A CFF4 F000      00074         MOVFF   PRODH, r0x02
+                      00075 ;       .line   9; main.c       led->drv_init(0);
+00000E 50??           00076         MOVF    r0x00, W
+000010 0F04           00077         ADDLW   0x04
+000012 6E??           00078         MOVWF   r0x03
+000014 0E00           00079         MOVLW   0x00
+000016 20??           00080         ADDWFC  r0x01, W
+000018 6E??           00081         MOVWF   r0x04
+00001A 0E00           00082         MOVLW   0x00
+00001C 20??           00083         ADDWFC  r0x02, W
+00001E 6E??           00084         MOVWF   r0x05
+000020 C??? F???      00085         MOVFF   r0x03, FSR0L
+000024 C??? F???      00086         MOVFF   r0x04, PRODL
+000028 50??           00087         MOVF    r0x05, W
+00002A EC?? F0??      00088         CALL    __gptrget3
+00002E 6E??           00089         MOVWF   r0x03
+000030 CFF3 F000      00090         MOVFF   PRODL, r0x04
+000034 CFF4 F000      00091         MOVFF   PRODH, r0x05
+000038 0E00           00092         MOVLW   0x00
+00003A 6EE5           00093         MOVWF   POSTDEC1
+00003C 0E00           00094         MOVLW   0x00
+00003E 6EE5           00095         MOVWF   POSTDEC1
+000040 0E00           00096         MOVLW   0x00
+000042 6EE5           00097         MOVWF   POSTDEC1
+000044 CFF2 FFE5      00098         MOVFF   INTCON, POSTDEC1
+000048 9EF2           00099         BCF     INTCON, 7
+00004A 0005           00100         PUSH    
+00004C 0E??           00101         MOVLW   LOW(_00107_DS_)
+00004E 6EFD           00102         MOVWF   TOSL
+000050 0E??           00103         MOVLW   HIGH(_00107_DS_)
+000052 6EFE           00104         MOVWF   TOSH
+000054 0E??           00105         MOVLW   UPPER(_00107_DS_)
+000056 6EFF           00106         MOVWF   TOSU
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-000042 0E??           00107         MOVLW   HIGH(_main_p1_1_12)
-000044 6E??           00108         MOVWF   r0x01
-000046 0E??           00109         MOVLW   LOW(_main_p1_1_12)
-000048 6E??           00110         MOVWF   r0x00
-00004A 0E80           00111         MOVLW   0x80
-00004C 6E??           00112         MOVWF   r0x02
-00004E 50??           00113         MOVF    r0x02, W
-000050 6EE5           00114         MOVWF   POSTDEC1
-000052 50??           00115         MOVF    r0x01, W
-000054 6EE5           00116         MOVWF   POSTDEC1
-000056 50??           00117         MOVF    r0x00, W
-000058 6EE5           00118         MOVWF   POSTDEC1
-00005A EC?? F0??      00119         CALL    _kernelAddProc
-00005E 0E03           00120         MOVLW   0x03
-000060 26E1           00121         ADDWF   FSR1L, F
-                      00122 ;       .line   32; main.c      kernelAddProc(&p2);
-000062 0E??           00123         MOVLW   HIGH(_main_p2_1_12)
-000064 6E??           00124         MOVWF   r0x01
-000066 0E??           00125         MOVLW   LOW(_main_p2_1_12)
-000068 6E??           00126         MOVWF   r0x00
-00006A 0E80           00127         MOVLW   0x80
-00006C 6E??           00128         MOVWF   r0x02
-00006E 50??           00129         MOVF    r0x02, W
-000070 6EE5           00130         MOVWF   POSTDEC1
-000072 50??           00131         MOVF    r0x01, W
-000074 6EE5           00132         MOVWF   POSTDEC1
-000076 50??           00133         MOVF    r0x00, W
-000078 6EE5           00134         MOVWF   POSTDEC1
-00007A EC?? F0??      00135         CALL    _kernelAddProc
-00007E 0E03           00136         MOVLW   0x03
-000080 26E1           00137         ADDWF   FSR1L, F
-                      00138 ;       .line   33; main.c      kernelAddProc(&p3);
-000082 0E??           00139         MOVLW   HIGH(_main_p3_1_12)
-000084 6E??           00140         MOVWF   r0x01
-000086 0E??           00141         MOVLW   LOW(_main_p3_1_12)
-000088 6E??           00142         MOVWF   r0x00
-00008A 0E80           00143         MOVLW   0x80
-00008C 6E??           00144         MOVWF   r0x02
-00008E 50??           00145         MOVF    r0x02, W
-000090 6EE5           00146         MOVWF   POSTDEC1
-000092 50??           00147         MOVF    r0x01, W
-000094 6EE5           00148         MOVWF   POSTDEC1
-000096 50??           00149         MOVF    r0x00, W
-000098 6EE5           00150         MOVWF   POSTDEC1
-00009A EC?? F0??      00151         CALL    _kernelAddProc
-00009E 0E03           00152         MOVLW   0x03
-0000A0 26E1           00153         ADDWF   FSR1L, F
-                      00154 ;       .line   34; main.c      kernelLoop();
-0000A2 EC?? F0??      00155         CALL    _kernelLoop
-0000A6 0012           00156         RETURN  
-                      00157 
-                      00158 ; ; Starting pCode block
-                      00159 S_main__tst3    code
-gpasm-1.2.0 #980 (May 17 2013) build/default/   3-11-2015  08:56:26         PAGE  4
+000058 BEE4           00107         BTFSC   PREINC1, 7
+00005A 8EF2           00108         BSF     INTCON, 7
+00005C C??? F???      00109         MOVFF   r0x05, PCLATU
+000060 C??? F???      00110         MOVFF   r0x04, PCLATH
+000064 50??           00111         MOVF    r0x03, W
+000066 6EF9           00112         MOVWF   PCL
+000068                00113 _00107_DS_:
+000068 0E03           00114         MOVLW   0x03
+00006A 26E1           00115         ADDWF   FSR1L, F
+                      00116 ;       .line   10; main.c      led->drv_func[LED_PORTD](0x00);
+00006C 50??           00117         MOVF    r0x00, W
+00006E 0F01           00118         ADDLW   0x01
+000070 6E??           00119         MOVWF   r0x03
+000072 0E00           00120         MOVLW   0x00
+000074 20??           00121         ADDWFC  r0x01, W
+000076 6E??           00122         MOVWF   r0x04
+000078 0E00           00123         MOVLW   0x00
+00007A 20??           00124         ADDWFC  r0x02, W
+00007C 6E??           00125         MOVWF   r0x05
+00007E C??? F???      00126         MOVFF   r0x03, FSR0L
+000082 C??? F???      00127         MOVFF   r0x04, PRODL
+000086 50??           00128         MOVF    r0x05, W
+000088 EC?? F0??      00129         CALL    __gptrget3
+00008C 6E??           00130         MOVWF   r0x06
+00008E CFF3 F000      00131         MOVFF   PRODL, r0x07
+000092 CFF4 F000      00132         MOVFF   PRODH, r0x08
+000096 C??? F???      00133         MOVFF   r0x06, FSR0L
+00009A C??? F???      00134         MOVFF   r0x07, PRODL
+00009E 50??           00135         MOVF    r0x08, W
+0000A0 EC?? F0??      00136         CALL    __gptrget3
+0000A4 6E??           00137         MOVWF   r0x06
+0000A6 CFF3 F000      00138         MOVFF   PRODL, r0x07
+0000AA CFF4 F000      00139         MOVFF   PRODH, r0x08
+0000AE 0E00           00140         MOVLW   0x00
+0000B0 6EE5           00141         MOVWF   POSTDEC1
+0000B2 0E00           00142         MOVLW   0x00
+0000B4 6EE5           00143         MOVWF   POSTDEC1
+0000B6 0E00           00144         MOVLW   0x00
+0000B8 6EE5           00145         MOVWF   POSTDEC1
+0000BA CFF2 FFE5      00146         MOVFF   INTCON, POSTDEC1
+0000BE 9EF2           00147         BCF     INTCON, 7
+0000C0 0005           00148         PUSH    
+0000C2 0E??           00149         MOVLW   LOW(_00108_DS_)
+0000C4 6EFD           00150         MOVWF   TOSL
+0000C6 0E??           00151         MOVLW   HIGH(_00108_DS_)
+0000C8 6EFE           00152         MOVWF   TOSH
+0000CA 0E??           00153         MOVLW   UPPER(_00108_DS_)
+0000CC 6EFF           00154         MOVWF   TOSU
+0000CE BEE4           00155         BTFSC   PREINC1, 7
+0000D0 8EF2           00156         BSF     INTCON, 7
+0000D2 C??? F???      00157         MOVFF   r0x08, PCLATU
+0000D6 C??? F???      00158         MOVFF   r0x07, PCLATH
+0000DA 50??           00159         MOVF    r0x06, W
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-000000                00160 _tst3:
-                      00161 ;       .line   18; main.c      char tst3(void) {
-000000 CFD9 FFE5      00162         MOVFF   FSR2L, POSTDEC1
-000004 CFE1 FFD9      00163         MOVFF   FSR1L, FSR2L
-000008 C??? F???      00164         MOVFF   r0x00, POSTDEC1
-                      00165 ;       .line   19; main.c      BitFlp(PORTD,2);
-00000C EE0F F083      00166         LFSR    0x00, 0xf83
-000010 CFEF F000      00167         MOVFF   INDF0, r0x00
-000014 74??           00168         BTG     r0x00, 2
-000016 EE0F F083      00169         LFSR    0x00, 0xf83
-00001A C??? F???      00170         MOVFF   r0x00, INDF0
-                      00171 ;       .line   20; main.c      return REPEAT;
-00001E 0E02           00172         MOVLW   0x02
-000020 CFE4 F000      00173         MOVFF   PREINC1, r0x00
-000024 CFE4 FFD9      00174         MOVFF   PREINC1, FSR2L
-000028 0012           00175         RETURN  
-                      00176 
-                      00177 ; ; Starting pCode block
-                      00178 S_main__tst2    code
-000000                00179 _tst2:
-                      00180 ;       .line   13; main.c      char tst2(void) {
-000000 CFD9 FFE5      00181         MOVFF   FSR2L, POSTDEC1
-000004 CFE1 FFD9      00182         MOVFF   FSR1L, FSR2L
-000008 C??? F???      00183         MOVFF   r0x00, POSTDEC1
-                      00184 ;       .line   14; main.c      BitFlp(PORTD,1);
-00000C EE0F F083      00185         LFSR    0x00, 0xf83
-000010 CFEF F000      00186         MOVFF   INDF0, r0x00
-000014 72??           00187         BTG     r0x00, 1
-000016 EE0F F083      00188         LFSR    0x00, 0xf83
-00001A C??? F???      00189         MOVFF   r0x00, INDF0
-                      00190 ;       .line   15; main.c      return SUCCESS;
-00001E 6AE8           00191         CLRF    WREG
-000020 CFE4 F000      00192         MOVFF   PREINC1, r0x00
-000024 CFE4 FFD9      00193         MOVFF   PREINC1, FSR2L
-000028 0012           00194         RETURN  
-                      00195 
-                      00196 ; ; Starting pCode block
-                      00197 S_main__tst1    code
-000000                00198 _tst1:
-                      00199 ;       .line   8; main.c       char tst1(void) {
-000000 CFD9 FFE5      00200         MOVFF   FSR2L, POSTDEC1
-000004 CFE1 FFD9      00201         MOVFF   FSR1L, FSR2L
-000008 C??? F???      00202         MOVFF   r0x00, POSTDEC1
-                      00203 ;       .line   9; main.c       BitFlp(PORTD,0);
-00000C EE0F F083      00204         LFSR    0x00, 0xf83
-000010 CFEF F000      00205         MOVFF   INDF0, r0x00
-000014 70??           00206         BTG     r0x00, 0
-000016 EE0F F083      00207         LFSR    0x00, 0xf83
-00001A C??? F???      00208         MOVFF   r0x00, INDF0
-                      00209 ;       .line   10; main.c      return REPEAT;
-00001E 0E02           00210         MOVLW   0x02
-000020 CFE4 F000      00211         MOVFF   PREINC1, r0x00
-000024 CFE4 FFD9      00212         MOVFF   PREINC1, FSR2L
-gpasm-1.2.0 #980 (May 17 2013) build/default/   3-11-2015  08:56:26         PAGE  5
+0000DC 6EF9           00160         MOVWF   PCL
+0000DE                00161 _00108_DS_:
+0000DE 0E03           00162         MOVLW   0x03
+0000E0 26E1           00163         ADDWF   FSR1L, F
+                      00164 ;       .line   11; main.c      led->drv_func[LED_INVERTE](led);
+0000E2 C??? F???      00165         MOVFF   r0x03, FSR0L
+0000E6 C??? F???      00166         MOVFF   r0x04, PRODL
+0000EA 50??           00167         MOVF    r0x05, W
+0000EC EC?? F0??      00168         CALL    __gptrget3
+0000F0 6E??           00169         MOVWF   r0x03
+0000F2 CFF3 F000      00170         MOVFF   PRODL, r0x04
+0000F6 CFF4 F000      00171         MOVFF   PRODH, r0x05
+0000FA 0E03           00172         MOVLW   0x03
+0000FC 26??           00173         ADDWF   r0x03, F
+0000FE 0E00           00174         MOVLW   0x00
+000100 22??           00175         ADDWFC  r0x04, F
+000102 22??           00176         ADDWFC  r0x05, F
+000104 C??? F???      00177         MOVFF   r0x03, FSR0L
+000108 C??? F???      00178         MOVFF   r0x04, PRODL
+00010C 50??           00179         MOVF    r0x05, W
+00010E EC?? F0??      00180         CALL    __gptrget3
+000112 6E??           00181         MOVWF   r0x03
+000114 CFF3 F000      00182         MOVFF   PRODL, r0x04
+000118 CFF4 F000      00183         MOVFF   PRODH, r0x05
+00011C 50??           00184         MOVF    r0x02, W
+00011E 6E??           00185         MOVWF   r0x02
+000120 50??           00186         MOVF    r0x01, W
+000122 6E??           00187         MOVWF   r0x01
+000124 50??           00188         MOVF    r0x00, W
+000126 6E??           00189         MOVWF   r0x00
+000128 50??           00190         MOVF    r0x02, W
+00012A 6EE5           00191         MOVWF   POSTDEC1
+00012C 50??           00192         MOVF    r0x01, W
+00012E 6EE5           00193         MOVWF   POSTDEC1
+000130 50??           00194         MOVF    r0x00, W
+000132 6EE5           00195         MOVWF   POSTDEC1
+000134 CFF2 FFE5      00196         MOVFF   INTCON, POSTDEC1
+000138 9EF2           00197         BCF     INTCON, 7
+00013A 0005           00198         PUSH    
+00013C 0E??           00199         MOVLW   LOW(_00109_DS_)
+00013E 6EFD           00200         MOVWF   TOSL
+000140 0E??           00201         MOVLW   HIGH(_00109_DS_)
+000142 6EFE           00202         MOVWF   TOSH
+000144 0E??           00203         MOVLW   UPPER(_00109_DS_)
+000146 6EFF           00204         MOVWF   TOSU
+000148 BEE4           00205         BTFSC   PREINC1, 7
+00014A 8EF2           00206         BSF     INTCON, 7
+00014C C??? F???      00207         MOVFF   r0x05, PCLATU
+000150 C??? F???      00208         MOVFF   r0x04, PCLATH
+000154 50??           00209         MOVF    r0x03, W
+000156 6EF9           00210         MOVWF   PCL
+000158                00211 _00109_DS_:
+000158 0E03           00212         MOVLW   0x03
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-000028 0012           00213         RETURN  
-                      00214 
+00015A 26E1           00213         ADDWF   FSR1L, F
+00015C 0012           00214         RETURN  
                       00215 
                       00216 
-                      00217 ; Statistics:
-                      00218 ; code size:      294 (0x0126) bytes ( 0.22%)
-                      00219 ;                 147 (0x0093) words
-                      00220 ; udata size:       9 (0x0009) bytes ( 0.70%)
-                      00221 ; access size:      3 (0x0003) bytes
-                      00222 
+                      00217 
+                      00218 ; Statistics:
+                      00219 ; code size:      350 (0x015e) bytes ( 0.27%)
+                      00220 ;                 175 (0x00af) words
+                      00221 ; udata size:       0 (0x0000) bytes ( 0.00%)
+                      00222 ; access size:      9 (0x0009) bytes
                       00223 
-                      00224         end
-gpasm-1.2.0 #980 (May 17 2013) build/default/   3-11-2015  08:56:26         PAGE  6
+                      00224 
+                      00225         end
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  6
 
 
 SYMBOL TABLE
   LABEL                             VALUE
 
+FSR0L                             00000FE9
 FSR1L                             00000FE1
-FSR2L                             00000FD9
-INDF0                             00000FEF
+INTCON                            00000FF2
+PCL                               00000FF9
+PCLATH                            00000FFA
+PCLATU                            00000FFB
 POSTDEC1                          00000FE5
 PREINC1                           00000FE4
-WREG                              00000FE8
+PRODH                             00000FF4
+PRODL                             00000FF3
+TOSH                              00000FFE
+TOSL                              00000FFD
+TOSU                              00000FFF
+_00107_DS_                        00000068
+_00108_DS_                        000000DE
+_00109_DS_                        00000158
 __18F4520                         00000001
-_kernelAddProc                    00000000
-_kernelInit                       00000000
-_kernelLoop                       00000000
+__gptrget3                        00000000
+_getLedDriver                     00000000
 _main                             00000000
-_main_p1_1_12                     00000000
-_main_p2_1_12                     00000000
-_main_p3_1_12                     00000000
-_tst1                             00000000
-_tst2                             00000000
-_tst3                             00000000
 r0x00                             00000000
 r0x01                             00000001
 r0x02                             00000002
+r0x03                             00000003
+r0x04                             00000004
+r0x05                             00000005
+r0x06                             00000006
+r0x07                             00000007
+r0x08                             00000008
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed

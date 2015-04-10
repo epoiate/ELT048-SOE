@@ -1,0 +1,1115 @@
+gplink-1.2.0 #980 (May 17 2013)
+Copyright (c) 1998-2013 gputils project
+Listing File Generated: 4-1-2015  10:06:20
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.3.0 #8604 (May 11 2013) (MINGW32)
+                                           ; This file was generated Wed Apr 01 10:06:20 2015
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           	CONFIG	MCLRE=ON
+                                           	CONFIG	OSC=HS
+                                           	CONFIG	WDT=OFF
+                                           	CONFIG	LVP=OFF
+                                           	CONFIG	DEBUG=OFF
+                                           	CONFIG	WDTPS=1
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_main
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern	__gptrget3
+                                           	extern	_getLedDriver
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           PCL	equ	0xff9
+                                           PCLATH	equ	0xffa
+                                           PCLATU	equ	0xffb
+                                           INTCON	equ	0xff2
+                                           TOSL	equ	0xffd
+                                           TOSH	equ	0xffe
+                                           TOSU	equ	0xfff
+                                           FSR0L	equ	0xfe9
+                                           FSR1L	equ	0xfe1
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PRODL	equ	0xff3
+                                           PRODH	equ	0xff4
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           r0x04	res	1
+                                           r0x05	res	1
+                                           r0x06	res	1
+                                           r0x07	res	1
+                                           r0x08	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; interrupt vector
+                                           ;--------------------------------------------------------
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_main__main	code
+                                           _main:
+                                           ;	.line	8; main.c	led = getLedDriver();
+000004   ec4b     call    0x496, 0         	CALL	_getLedDriver
+000006   f002
+000008   6e00     movwf   0, 0             	MOVWF	r0x00
+00000a   cff3     movff   0xff3, 0x1       	MOVFF	PRODL, r0x01
+00000c   f001
+00000e   cff4     movff   0xff4, 0x2       	MOVFF	PRODH, r0x02
+000010   f002
+                                           ;	.line	9; main.c	led->drv_init(0);
+000012   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000014   0f04     addlw   0x4              	ADDLW	0x04
+000016   6e03     movwf   0x3, 0           	MOVWF	r0x03
+000018   0e00     movlw   0                	MOVLW	0x00
+00001a   2001     addwfc  0x1, 0, 0        	ADDWFC	r0x01, W
+00001c   6e04     movwf   0x4, 0           	MOVWF	r0x04
+00001e   0e00     movlw   0                	MOVLW	0x00
+000020   2002     addwfc  0x2, 0, 0        	ADDWFC	r0x02, W
+000022   6e05     movwf   0x5, 0           	MOVWF	r0x05
+000024   c003     movff   0x3, 0xfe9       	MOVFF	r0x03, FSR0L
+000026   ffe9
+000028   c004     movff   0x4, 0xff3       	MOVFF	r0x04, PRODL
+00002a   fff3
+00002c   5005     movf    0x5, 0, 0        	MOVF	r0x05, W
+00002e   ec20     call    0x640, 0         	CALL	__gptrget3
+000030   f003
+000032   6e03     movwf   0x3, 0           	MOVWF	r0x03
+000034   cff3     movff   0xff3, 0x4       	MOVFF	PRODL, r0x04
+000036   f004
+000038   cff4     movff   0xff4, 0x5       	MOVFF	PRODH, r0x05
+00003a   f005
+00003c   0e00     movlw   0                	MOVLW	0x00
+00003e   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000040   0e00     movlw   0                	MOVLW	0x00
+000042   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000044   0e00     movlw   0                	MOVLW	0x00
+000046   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000048   cff2     movff   0xff2, 0xfe5     	MOVFF	INTCON, POSTDEC1
+00004a   ffe5
+00004c   9ef2     bcf     0xf2, 0x7, 0     	BCF	INTCON, 7
+00004e   0005     push                     	PUSH	
+000050   0e6c     movlw   0x6c             	MOVLW	LOW(_00107_DS_)
+000052   6efd     movwf   0xfd, 0          	MOVWF	TOSL
+000054   0e00     movlw   0                	MOVLW	HIGH(_00107_DS_)
+000056   6efe     movwf   0xfe, 0          	MOVWF	TOSH
+000058   0e00     movlw   0                	MOVLW	UPPER(_00107_DS_)
+00005a   6eff     movwf   0xff, 0          	MOVWF	TOSU
+00005c   bee4     btfsc   0xe4, 0x7, 0     	BTFSC	PREINC1, 7
+00005e   8ef2     bsf     0xf2, 0x7, 0     	BSF	INTCON, 7
+000060   c005     movff   0x5, 0xffb       	MOVFF	r0x05, PCLATU
+000062   fffb
+000064   c004     movff   0x4, 0xffa       	MOVFF	r0x04, PCLATH
+000066   fffa
+000068   5003     movf    0x3, 0, 0        	MOVF	r0x03, W
+00006a   6ef9     movwf   0xf9, 0          	MOVWF	PCL
+                                           _00107_DS_:
+00006c   0e03     movlw   0x3              	MOVLW	0x03
+00006e   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	10; main.c	led->drv_func[LED_PORTD](0x00);
+000070   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000072   0f01     addlw   0x1              	ADDLW	0x01
+000074   6e03     movwf   0x3, 0           	MOVWF	r0x03
+000076   0e00     movlw   0                	MOVLW	0x00
+000078   2001     addwfc  0x1, 0, 0        	ADDWFC	r0x01, W
+00007a   6e04     movwf   0x4, 0           	MOVWF	r0x04
+00007c   0e00     movlw   0                	MOVLW	0x00
+00007e   2002     addwfc  0x2, 0, 0        	ADDWFC	r0x02, W
+000080   6e05     movwf   0x5, 0           	MOVWF	r0x05
+000082   c003     movff   0x3, 0xfe9       	MOVFF	r0x03, FSR0L
+000084   ffe9
+000086   c004     movff   0x4, 0xff3       	MOVFF	r0x04, PRODL
+000088   fff3
+00008a   5005     movf    0x5, 0, 0        	MOVF	r0x05, W
+00008c   ec20     call    0x640, 0         	CALL	__gptrget3
+00008e   f003
+000090   6e06     movwf   0x6, 0           	MOVWF	r0x06
+000092   cff3     movff   0xff3, 0x7       	MOVFF	PRODL, r0x07
+000094   f007
+000096   cff4     movff   0xff4, 0x8       	MOVFF	PRODH, r0x08
+000098   f008
+00009a   c006     movff   0x6, 0xfe9       	MOVFF	r0x06, FSR0L
+00009c   ffe9
+00009e   c007     movff   0x7, 0xff3       	MOVFF	r0x07, PRODL
+0000a0   fff3
+0000a2   5008     movf    0x8, 0, 0        	MOVF	r0x08, W
+0000a4   ec20     call    0x640, 0         	CALL	__gptrget3
+0000a6   f003
+0000a8   6e06     movwf   0x6, 0           	MOVWF	r0x06
+0000aa   cff3     movff   0xff3, 0x7       	MOVFF	PRODL, r0x07
+0000ac   f007
+0000ae   cff4     movff   0xff4, 0x8       	MOVFF	PRODH, r0x08
+0000b0   f008
+0000b2   0e00     movlw   0                	MOVLW	0x00
+0000b4   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0000b6   0e00     movlw   0                	MOVLW	0x00
+0000b8   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0000ba   0e00     movlw   0                	MOVLW	0x00
+0000bc   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0000be   cff2     movff   0xff2, 0xfe5     	MOVFF	INTCON, POSTDEC1
+0000c0   ffe5
+0000c2   9ef2     bcf     0xf2, 0x7, 0     	BCF	INTCON, 7
+0000c4   0005     push                     	PUSH	
+0000c6   0ee2     movlw   0xe2             	MOVLW	LOW(_00108_DS_)
+0000c8   6efd     movwf   0xfd, 0          	MOVWF	TOSL
+0000ca   0e00     movlw   0                	MOVLW	HIGH(_00108_DS_)
+0000cc   6efe     movwf   0xfe, 0          	MOVWF	TOSH
+0000ce   0e00     movlw   0                	MOVLW	UPPER(_00108_DS_)
+0000d0   6eff     movwf   0xff, 0          	MOVWF	TOSU
+0000d2   bee4     btfsc   0xe4, 0x7, 0     	BTFSC	PREINC1, 7
+0000d4   8ef2     bsf     0xf2, 0x7, 0     	BSF	INTCON, 7
+0000d6   c008     movff   0x8, 0xffb       	MOVFF	r0x08, PCLATU
+0000d8   fffb
+0000da   c007     movff   0x7, 0xffa       	MOVFF	r0x07, PCLATH
+0000dc   fffa
+0000de   5006     movf    0x6, 0, 0        	MOVF	r0x06, W
+0000e0   6ef9     movwf   0xf9, 0          	MOVWF	PCL
+                                           _00108_DS_:
+0000e2   0e03     movlw   0x3              	MOVLW	0x03
+0000e4   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	11; main.c	led->drv_func[LED_INVERTE](led);
+0000e6   c003     movff   0x3, 0xfe9       	MOVFF	r0x03, FSR0L
+0000e8   ffe9
+0000ea   c004     movff   0x4, 0xff3       	MOVFF	r0x04, PRODL
+0000ec   fff3
+0000ee   5005     movf    0x5, 0, 0        	MOVF	r0x05, W
+0000f0   ec20     call    0x640, 0         	CALL	__gptrget3
+0000f2   f003
+0000f4   6e03     movwf   0x3, 0           	MOVWF	r0x03
+0000f6   cff3     movff   0xff3, 0x4       	MOVFF	PRODL, r0x04
+0000f8   f004
+0000fa   cff4     movff   0xff4, 0x5       	MOVFF	PRODH, r0x05
+0000fc   f005
+0000fe   0e03     movlw   0x3              	MOVLW	0x03
+000100   2603     addwf   0x3, 0x1, 0      	ADDWF	r0x03, F
+000102   0e00     movlw   0                	MOVLW	0x00
+000104   2204     addwfc  0x4, 0x1, 0      	ADDWFC	r0x04, F
+000106   2205     addwfc  0x5, 0x1, 0      	ADDWFC	r0x05, F
+000108   c003     movff   0x3, 0xfe9       	MOVFF	r0x03, FSR0L
+00010a   ffe9
+00010c   c004     movff   0x4, 0xff3       	MOVFF	r0x04, PRODL
+00010e   fff3
+000110   5005     movf    0x5, 0, 0        	MOVF	r0x05, W
+000112   ec20     call    0x640, 0         	CALL	__gptrget3
+000114   f003
+000116   6e03     movwf   0x3, 0           	MOVWF	r0x03
+000118   cff3     movff   0xff3, 0x4       	MOVFF	PRODL, r0x04
+00011a   f004
+00011c   cff4     movff   0xff4, 0x5       	MOVFF	PRODH, r0x05
+00011e   f005
+000120   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+000122   6e02     movwf   0x2, 0           	MOVWF	r0x02
+000124   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+000126   6e01     movwf   0x1, 0           	MOVWF	r0x01
+000128   5000     movf    0, 0, 0          	MOVF	r0x00, W
+00012a   6e00     movwf   0, 0             	MOVWF	r0x00
+00012c   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+00012e   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000130   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+000132   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000134   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000136   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000138   cff2     movff   0xff2, 0xfe5     	MOVFF	INTCON, POSTDEC1
+00013a   ffe5
+00013c   9ef2     bcf     0xf2, 0x7, 0     	BCF	INTCON, 7
+00013e   0005     push                     	PUSH	
+000140   0e5c     movlw   0x5c             	MOVLW	LOW(_00109_DS_)
+000142   6efd     movwf   0xfd, 0          	MOVWF	TOSL
+000144   0e01     movlw   0x1              	MOVLW	HIGH(_00109_DS_)
+000146   6efe     movwf   0xfe, 0          	MOVWF	TOSH
+000148   0e00     movlw   0                	MOVLW	UPPER(_00109_DS_)
+00014a   6eff     movwf   0xff, 0          	MOVWF	TOSU
+00014c   bee4     btfsc   0xe4, 0x7, 0     	BTFSC	PREINC1, 7
+00014e   8ef2     bsf     0xf2, 0x7, 0     	BSF	INTCON, 7
+000150   c005     movff   0x5, 0xffb       	MOVFF	r0x05, PCLATU
+000152   fffb
+000154   c004     movff   0x4, 0xffa       	MOVFF	r0x04, PCLATH
+000156   fffa
+000158   5003     movf    0x3, 0, 0        	MOVF	r0x03, W
+00015a   6ef9     movwf   0xf9, 0          	MOVWF	PCL
+                                           _00109_DS_:
+00015c   0e03     movlw   0x3              	MOVLW	0x03
+00015e   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+000160   0012     return  0                	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  350 (0x015e) bytes ( 0.27%)
+                                           ;           	  175 (0x00af) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    9 (0x0009) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.3.0 #8604 (May 11 2013) (MINGW32)
+                                           ; This file was generated Wed Apr 01 10:06:20 2015
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_getLedDriver
+                                           	global	_changePORTD
+                                           	global	_invertPORTD
+                                           	global	_initLed
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           WREG	equ	0xfe8
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PLUSW2	equ	0xfdb
+                                           PRODL	equ	0xff3
+                                           PRODH	equ	0xff4
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           
+                                           udata_drvLed_0	udata
+                                           _eu	res	7
+                                           
+                                           udata_drvLed_1	udata
+                                           _minhas_funcoes	res	6
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_drvLed__getLedDriver	code
+                                           _getLedDriver:
+                                           ;	.line	35; drvLed.c	driver* getLedDriver(void) {
+000496   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000498   ffe5
+00049a   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00049c   ffd9
+00049e   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+0004a0   ffe5
+0004a2   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+0004a4   ffe5
+0004a6   c002     movff   0x2, 0xfe5       	MOVFF	r0x02, POSTDEC1
+0004a8   ffe5
+                                           ;	.line	37; drvLed.c	eu.drv_init = initLed;
+0004aa   0eb6     movlw   0xb6             	MOVLW	LOW(_initLed)
+0004ac   0100     movlb   0                	BANKSEL	(_eu + 4)
+0004ae   6f84     movwf   0x84, 0x1        	MOVWF	(_eu + 4), B
+0004b0   0e05     movlw   0x5              	MOVLW	HIGH(_initLed)
+0004b2   0100     movlb   0                	BANKSEL	(_eu + 5)
+0004b4   6f85     movwf   0x85, 0x1        	MOVWF	(_eu + 5), B
+0004b6   0e00     movlw   0                	MOVLW	UPPER(_initLed)
+0004b8   0100     movlb   0                	BANKSEL	(_eu + 6)
+0004ba   6f86     movwf   0x86, 0x1        	MOVWF	(_eu + 6), B
+                                           ;	.line	39; drvLed.c	minhas_funcoes[LED_PORTD] = changePORTD;
+0004bc   0efe     movlw   0xfe             	MOVLW	LOW(_changePORTD)
+0004be   0100     movlb   0                	BANKSEL	_minhas_funcoes
+0004c0   6f8e     movwf   0x8e, 0x1        	MOVWF	_minhas_funcoes, B
+0004c2   0e05     movlw   0x5              	MOVLW	HIGH(_changePORTD)
+0004c4   0100     movlb   0                	BANKSEL	(_minhas_funcoes + 1)
+0004c6   6f8f     movwf   0x8f, 0x1        	MOVWF	(_minhas_funcoes + 1), B
+0004c8   0e00     movlw   0                	MOVLW	UPPER(_changePORTD)
+0004ca   0100     movlb   0                	BANKSEL	(_minhas_funcoes + 2)
+0004cc   6f90     movwf   0x90, 0x1        	MOVWF	(_minhas_funcoes + 2), B
+                                           ;	.line	40; drvLed.c	minhas_funcoes[LED_INVERTE] = invertPORTD;
+0004ce   0ed6     movlw   0xd6             	MOVLW	LOW(_invertPORTD)
+0004d0   0100     movlb   0                	BANKSEL	(_minhas_funcoes + 3)
+0004d2   6f91     movwf   0x91, 0x1        	MOVWF	(_minhas_funcoes + 3), B
+0004d4   0e06     movlw   0x6              	MOVLW	HIGH(_invertPORTD)
+0004d6   0100     movlb   0                	BANKSEL	(_minhas_funcoes + 4)
+0004d8   6f92     movwf   0x92, 0x1        	MOVWF	(_minhas_funcoes + 4), B
+0004da   0e00     movlw   0                	MOVLW	UPPER(_invertPORTD)
+0004dc   0100     movlb   0                	BANKSEL	(_minhas_funcoes + 5)
+0004de   6f93     movwf   0x93, 0x1        	MOVWF	(_minhas_funcoes + 5), B
+                                           ;	.line	42; drvLed.c	eu.drv_func = minhas_funcoes;
+0004e0   0e00     movlw   0                	MOVLW	HIGH(_minhas_funcoes)
+0004e2   6e01     movwf   0x1, 0           	MOVWF	r0x01
+0004e4   0e8e     movlw   0x8e             	MOVLW	LOW(_minhas_funcoes)
+0004e6   6e00     movwf   0, 0             	MOVWF	r0x00
+0004e8   0e80     movlw   0x80             	MOVLW	0x80
+0004ea   6e02     movwf   0x2, 0           	MOVWF	r0x02
+0004ec   5000     movf    0, 0, 0          	MOVF	r0x00, W
+0004ee   0100     movlb   0                	BANKSEL	(_eu + 1)
+0004f0   6f81     movwf   0x81, 0x1        	MOVWF	(_eu + 1), B
+0004f2   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+0004f4   0100     movlb   0                	BANKSEL	(_eu + 2)
+0004f6   6f82     movwf   0x82, 0x1        	MOVWF	(_eu + 2), B
+0004f8   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+0004fa   0100     movlb   0                	BANKSEL	(_eu + 3)
+0004fc   6f83     movwf   0x83, 0x1        	MOVWF	(_eu + 3), B
+                                           ;	.line	43; drvLed.c	return &eu;
+0004fe   0e00     movlw   0                	MOVLW	HIGH(_eu)
+000500   6e01     movwf   0x1, 0           	MOVWF	r0x01
+000502   0e80     movlw   0x80             	MOVLW	LOW(_eu)
+000504   6e00     movwf   0, 0             	MOVWF	r0x00
+000506   0e80     movlw   0x80             	MOVLW	0x80
+000508   6e02     movwf   0x2, 0           	MOVWF	r0x02
+00050a   c002     movff   0x2, 0xff4       	MOVFF	r0x02, PRODH
+00050c   fff4
+00050e   c001     movff   0x1, 0xff3       	MOVFF	r0x01, PRODL
+000510   fff3
+000512   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000514   cfe4     movff   0xfe4, 0x2       	MOVFF	PREINC1, r0x02
+000516   f002
+000518   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+00051a   f001
+00051c   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+00051e   f000
+000520   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000522   ffd9
+000524   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_drvLed__initLed	code
+                                           _initLed:
+                                           ;	.line	25; drvLed.c	char initLed(void *parameters) {
+0005b6   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0005b8   ffe5
+0005ba   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0005bc   ffd9
+0005be   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+0005c0   ffe5
+0005c2   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+0005c4   ffe5
+0005c6   c002     movff   0x2, 0xfe5       	MOVFF	r0x02, POSTDEC1
+0005c8   ffe5
+0005ca   0e02     movlw   0x2              	MOVLW	0x02
+0005cc   cfdb     movff   0xfdb, 0         	MOVFF	PLUSW2, r0x00
+0005ce   f000
+0005d0   0e03     movlw   0x3              	MOVLW	0x03
+0005d2   cfdb     movff   0xfdb, 0x1       	MOVFF	PLUSW2, r0x01
+0005d4   f001
+0005d6   0e04     movlw   0x4              	MOVLW	0x04
+0005d8   cfdb     movff   0xfdb, 0x2       	MOVFF	PLUSW2, r0x02
+0005da   f002
+                                           ;	.line	26; drvLed.c	TRISD = 0x00;
+0005dc   ee0f     lfsr    0, 0xf95         	LFSR	0x00, 0xf95
+0005de   f095
+0005e0   0e00     movlw   0                	MOVLW	0x00
+0005e2   6eef     movwf   0xef, 0          	MOVWF	INDF0
+                                           ;	.line	27; drvLed.c	eu.drv_id = (char) parameters;
+0005e4   5000     movf    0, 0, 0          	MOVF	r0x00, W
+0005e6   0100     movlb   0                	BANKSEL	_eu
+0005e8   6f80     movwf   0x80, 0x1        	MOVWF	_eu, B
+                                           ;	.line	28; drvLed.c	return FIM_OK;
+0005ea   0e01     movlw   0x1              	MOVLW	0x01
+0005ec   cfe4     movff   0xfe4, 0x2       	MOVFF	PREINC1, r0x02
+0005ee   f002
+0005f0   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+0005f2   f001
+0005f4   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+0005f6   f000
+0005f8   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0005fa   ffd9
+0005fc   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_drvLed__invertPORTD	code
+                                           _invertPORTD:
+                                           ;	.line	18; drvLed.c	char invertPORTD(void *parameters) {
+0006d6   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0006d8   ffe5
+0006da   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0006dc   ffd9
+0006de   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+0006e0   ffe5
+                                           ;	.line	19; drvLed.c	PORTD = ~PORTD;
+0006e2   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+0006e4   f083
+0006e6   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+0006e8   f000
+0006ea   1e00     comf    0, 0x1, 0        	COMF	r0x00, F
+0006ec   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+0006ee   f083
+0006f0   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+0006f2   ffef
+                                           ;	.line	20; drvLed.c	return FIM_OK;
+0006f4   0e01     movlw   0x1              	MOVLW	0x01
+0006f6   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+0006f8   f000
+0006fa   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0006fc   ffd9
+0006fe   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_drvLed__changePORTD	code
+                                           _changePORTD:
+                                           ;	.line	13; drvLed.c	char changePORTD(void *parameters) {
+0005fe   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000600   ffe5
+000602   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000604   ffd9
+000606   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+000608   ffe5
+00060a   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+00060c   ffe5
+00060e   c002     movff   0x2, 0xfe5       	MOVFF	r0x02, POSTDEC1
+000610   ffe5
+000612   0e02     movlw   0x2              	MOVLW	0x02
+000614   cfdb     movff   0xfdb, 0         	MOVFF	PLUSW2, r0x00
+000616   f000
+000618   0e03     movlw   0x3              	MOVLW	0x03
+00061a   cfdb     movff   0xfdb, 0x1       	MOVFF	PLUSW2, r0x01
+00061c   f001
+00061e   0e04     movlw   0x4              	MOVLW	0x04
+000620   cfdb     movff   0xfdb, 0x2       	MOVFF	PLUSW2, r0x02
+000622   f002
+                                           ;	.line	14; drvLed.c	PORTD = (char) parameters;
+000624   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+000626   f083
+000628   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+00062a   ffef
+                                           ;	.line	15; drvLed.c	return FIM_OK;
+00062c   0e01     movlw   0x1              	MOVLW	0x01
+00062e   cfe4     movff   0xfe4, 0x2       	MOVFF	PREINC1, r0x02
+000630   f002
+000632   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+000634   f001
+000636   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+000638   f000
+00063a   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+00063c   ffd9
+00063e   0012     return  0                	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  324 (0x0144) bytes ( 0.25%)
+                                           ;           	  162 (0x00a2) words
+                                           ; udata size:	   13 (0x000d) bytes ( 1.02%)
+                                           ; access size:	    3 (0x0003) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.3.0 #8604 (May 11 2013) (MINGW32)
+                                           ; This file was generated Wed Apr 01 10:06:20 2015
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_getLcdDriver
+                                           	global	_Delay40us
+                                           	global	_Delay2ms
+                                           	global	_EnviaComando
+                                           	global	_EnviaDados
+                                           	global	_InicializaLCD
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           WREG	equ	0xfe8
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PLUSW2	equ	0xfdb
+                                           PRODL	equ	0xff3
+                                           PRODH	equ	0xff4
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           
+                                           udata_drvLcd_0	udata
+                                           _eu	res	7
+                                           
+                                           udata_drvLcd_1	udata
+                                           _minhas_funcoes	res	6
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_drvLcd__getLcdDriver	code
+                                           _getLcdDriver:
+                                           ;	.line	106; drvLcd.c	driver* getLcdDriver(void) {
+000526   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000528   ffe5
+00052a   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00052c   ffd9
+00052e   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+000530   ffe5
+000532   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+000534   ffe5
+000536   c002     movff   0x2, 0xfe5       	MOVFF	r0x02, POSTDEC1
+000538   ffe5
+                                           ;	.line	108; drvLcd.c	eu.drv_init = InicializaLCD;
+00053a   0e62     movlw   0x62             	MOVLW	LOW(_InicializaLCD)
+00053c   0100     movlb   0                	BANKSEL	(_eu + 4)
+00053e   6f8b     movwf   0x8b, 0x1        	MOVWF	(_eu + 4), B
+000540   0e01     movlw   0x1              	MOVLW	HIGH(_InicializaLCD)
+000542   0100     movlb   0                	BANKSEL	(_eu + 5)
+000544   6f8c     movwf   0x8c, 0x1        	MOVWF	(_eu + 5), B
+000546   0e00     movlw   0                	MOVLW	UPPER(_InicializaLCD)
+000548   0100     movlb   0                	BANKSEL	(_eu + 6)
+00054a   6f8d     movwf   0x8d, 0x1        	MOVWF	(_eu + 6), B
+                                           ;	.line	110; drvLcd.c	minhas_funcoes[LCD_COMANDO] = EnviaComando;
+00054c   0e3a     movlw   0x3a             	MOVLW	LOW(_EnviaComando)
+00054e   0100     movlb   0                	BANKSEL	_minhas_funcoes
+000550   6f94     movwf   0x94, 0x1        	MOVWF	_minhas_funcoes, B
+000552   0e03     movlw   0x3              	MOVLW	HIGH(_EnviaComando)
+000554   0100     movlb   0                	BANKSEL	(_minhas_funcoes + 1)
+000556   6f95     movwf   0x95, 0x1        	MOVWF	(_minhas_funcoes + 1), B
+000558   0e00     movlw   0                	MOVLW	UPPER(_EnviaComando)
+00055a   0100     movlb   0                	BANKSEL	(_minhas_funcoes + 2)
+00055c   6f96     movwf   0x96, 0x1        	MOVWF	(_minhas_funcoes + 2), B
+                                           ;	.line	111; drvLcd.c	minhas_funcoes[LCD_DADOS] = EnviaDados;
+00055e   0e7c     movlw   0x7c             	MOVLW	LOW(_EnviaDados)
+000560   0100     movlb   0                	BANKSEL	(_minhas_funcoes + 3)
+000562   6f97     movwf   0x97, 0x1        	MOVWF	(_minhas_funcoes + 3), B
+000564   0e02     movlw   0x2              	MOVLW	HIGH(_EnviaDados)
+000566   0100     movlb   0                	BANKSEL	(_minhas_funcoes + 4)
+000568   6f98     movwf   0x98, 0x1        	MOVWF	(_minhas_funcoes + 4), B
+00056a   0e00     movlw   0                	MOVLW	UPPER(_EnviaDados)
+00056c   0100     movlb   0                	BANKSEL	(_minhas_funcoes + 5)
+00056e   6f99     movwf   0x99, 0x1        	MOVWF	(_minhas_funcoes + 5), B
+                                           ;	.line	113; drvLcd.c	eu.drv_func = minhas_funcoes;
+000570   0e00     movlw   0                	MOVLW	HIGH(_minhas_funcoes)
+000572   6e01     movwf   0x1, 0           	MOVWF	r0x01
+000574   0e94     movlw   0x94             	MOVLW	LOW(_minhas_funcoes)
+000576   6e00     movwf   0, 0             	MOVWF	r0x00
+000578   0e80     movlw   0x80             	MOVLW	0x80
+00057a   6e02     movwf   0x2, 0           	MOVWF	r0x02
+00057c   5000     movf    0, 0, 0          	MOVF	r0x00, W
+00057e   0100     movlb   0                	BANKSEL	(_eu + 1)
+000580   6f88     movwf   0x88, 0x1        	MOVWF	(_eu + 1), B
+000582   5001     movf    0x1, 0, 0        	MOVF	r0x01, W
+000584   0100     movlb   0                	BANKSEL	(_eu + 2)
+000586   6f89     movwf   0x89, 0x1        	MOVWF	(_eu + 2), B
+000588   5002     movf    0x2, 0, 0        	MOVF	r0x02, W
+00058a   0100     movlb   0                	BANKSEL	(_eu + 3)
+00058c   6f8a     movwf   0x8a, 0x1        	MOVWF	(_eu + 3), B
+                                           ;	.line	114; drvLcd.c	return &eu;
+00058e   0e00     movlw   0                	MOVLW	HIGH(_eu)
+000590   6e01     movwf   0x1, 0           	MOVWF	r0x01
+000592   0e87     movlw   0x87             	MOVLW	LOW(_eu)
+000594   6e00     movwf   0, 0             	MOVWF	r0x00
+000596   0e80     movlw   0x80             	MOVLW	0x80
+000598   6e02     movwf   0x2, 0           	MOVWF	r0x02
+00059a   c002     movff   0x2, 0xff4       	MOVFF	r0x02, PRODH
+00059c   fff4
+00059e   c001     movff   0x1, 0xff3       	MOVFF	r0x01, PRODL
+0005a0   fff3
+0005a2   5000     movf    0, 0, 0          	MOVF	r0x00, W
+0005a4   cfe4     movff   0xfe4, 0x2       	MOVFF	PREINC1, r0x02
+0005a6   f002
+0005a8   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+0005aa   f001
+0005ac   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+0005ae   f000
+0005b0   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0005b2   ffd9
+0005b4   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_drvLcd__InicializaLCD	code
+                                           _InicializaLCD:
+                                           ;	.line	77; drvLcd.c	char InicializaLCD(void *parameters) {
+000162   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000164   ffe5
+000166   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000168   ffd9
+00016a   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+00016c   ffe5
+00016e   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+000170   ffe5
+000172   c002     movff   0x2, 0xfe5       	MOVFF	r0x02, POSTDEC1
+000174   ffe5
+000176   c003     movff   0x3, 0xfe5       	MOVFF	r0x03, POSTDEC1
+000178   ffe5
+00017a   0e02     movlw   0x2              	MOVLW	0x02
+00017c   cfdb     movff   0xfdb, 0         	MOVFF	PLUSW2, r0x00
+00017e   f000
+000180   0e03     movlw   0x3              	MOVLW	0x03
+000182   cfdb     movff   0xfdb, 0x1       	MOVFF	PLUSW2, r0x01
+000184   f001
+000186   0e04     movlw   0x4              	MOVLW	0x04
+000188   cfdb     movff   0xfdb, 0x2       	MOVFF	PLUSW2, r0x02
+00018a   f002
+                                           ;	.line	81; drvLcd.c	Delay2ms();
+00018c   ec3b     call    0x676, 0         	CALL	_Delay2ms
+00018e   f003
+                                           ;	.line	82; drvLcd.c	Delay2ms();
+000190   ec3b     call    0x676, 0         	CALL	_Delay2ms
+000192   f003
+                                           ;	.line	83; drvLcd.c	Delay2ms();
+000194   ec3b     call    0x676, 0         	CALL	_Delay2ms
+000196   f003
+                                           ;	.line	84; drvLcd.c	Delay2ms();
+000198   ec3b     call    0x676, 0         	CALL	_Delay2ms
+00019a   f003
+                                           ;	.line	85; drvLcd.c	Delay2ms();
+00019c   ec3b     call    0x676, 0         	CALL	_Delay2ms
+00019e   f003
+                                           ;	.line	88; drvLcd.c	BitClr(TRISE, RS); //RS
+0001a0   ee0f     lfsr    0, 0xf96         	LFSR	0x00, 0xf96
+0001a2   f096
+0001a4   cfef     movff   0xfef, 0x3       	MOVFF	INDF0, r0x03
+0001a6   f003
+0001a8   9003     bcf     0x3, 0, 0        	BCF	r0x03, 0
+0001aa   ee0f     lfsr    0, 0xf96         	LFSR	0x00, 0xf96
+0001ac   f096
+0001ae   c003     movff   0x3, 0xfef       	MOVFF	r0x03, INDF0
+0001b0   ffef
+                                           ;	.line	89; drvLcd.c	BitClr(TRISE, EN); //EN
+0001b2   ee0f     lfsr    0, 0xf96         	LFSR	0x00, 0xf96
+0001b4   f096
+0001b6   cfef     movff   0xfef, 0x3       	MOVFF	INDF0, r0x03
+0001b8   f003
+0001ba   9203     bcf     0x3, 0x1, 0      	BCF	r0x03, 1
+0001bc   ee0f     lfsr    0, 0xf96         	LFSR	0x00, 0xf96
+0001be   f096
+0001c0   c003     movff   0x3, 0xfef       	MOVFF	r0x03, INDF0
+0001c2   ffef
+                                           ;	.line	90; drvLcd.c	BitClr(TRISE, RW); //RW
+0001c4   ee0f     lfsr    0, 0xf96         	LFSR	0x00, 0xf96
+0001c6   f096
+0001c8   cfef     movff   0xfef, 0x3       	MOVFF	INDF0, r0x03
+0001ca   f003
+0001cc   9403     bcf     0x3, 0x2, 0      	BCF	r0x03, 2
+0001ce   ee0f     lfsr    0, 0xf96         	LFSR	0x00, 0xf96
+0001d0   f096
+0001d2   c003     movff   0x3, 0xfef       	MOVFF	r0x03, INDF0
+0001d4   ffef
+                                           ;	.line	91; drvLcd.c	TRISD = 0x00; //dados
+0001d6   ee0f     lfsr    0, 0xf95         	LFSR	0x00, 0xf95
+0001d8   f095
+0001da   0e00     movlw   0                	MOVLW	0x00
+0001dc   6eef     movwf   0xef, 0          	MOVWF	INDF0
+                                           ;	.line	92; drvLcd.c	ADCON1 = 0b00001110; //apenas
+0001de   ee0f     lfsr    0, 0xfc1         	LFSR	0x00, 0xfc1
+0001e0   f0c1
+0001e2   0e0e     movlw   0xe              	MOVLW	0x0e
+0001e4   6eef     movwf   0xef, 0          	MOVWF	INDF0
+                                           ;	.line	95; drvLcd.c	EnviaComando(0x38); //8bits, 2 linhas, 5x8
+0001e6   0e00     movlw   0                	MOVLW	0x00
+0001e8   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0001ea   0e00     movlw   0                	MOVLW	0x00
+0001ec   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0001ee   0e38     movlw   0x38             	MOVLW	0x38
+0001f0   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0001f2   ec9d     call    0x33a, 0         	CALL	_EnviaComando
+0001f4   f001
+0001f6   0e03     movlw   0x3              	MOVLW	0x03
+0001f8   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	96; drvLcd.c	EnviaComando(0x06); //modo incremental
+0001fa   0e00     movlw   0                	MOVLW	0x00
+0001fc   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+0001fe   0e00     movlw   0                	MOVLW	0x00
+000200   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000202   0e06     movlw   0x6              	MOVLW	0x06
+000204   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000206   ec9d     call    0x33a, 0         	CALL	_EnviaComando
+000208   f001
+00020a   0e03     movlw   0x3              	MOVLW	0x03
+00020c   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	97; drvLcd.c	EnviaComando(0x0F); //display e cursor on, com blink
+00020e   0e00     movlw   0                	MOVLW	0x00
+000210   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000212   0e00     movlw   0                	MOVLW	0x00
+000214   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000216   0e0f     movlw   0xf              	MOVLW	0x0f
+000218   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00021a   ec9d     call    0x33a, 0         	CALL	_EnviaComando
+00021c   f001
+00021e   0e03     movlw   0x3              	MOVLW	0x03
+000220   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	98; drvLcd.c	EnviaComando(0x03); //zera tudo
+000222   0e00     movlw   0                	MOVLW	0x00
+000224   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000226   0e00     movlw   0                	MOVLW	0x00
+000228   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00022a   0e03     movlw   0x3              	MOVLW	0x03
+00022c   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00022e   ec9d     call    0x33a, 0         	CALL	_EnviaComando
+000230   f001
+000232   0e03     movlw   0x3              	MOVLW	0x03
+000234   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	99; drvLcd.c	EnviaComando(0x01); //limpar display
+000236   0e00     movlw   0                	MOVLW	0x00
+000238   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00023a   0e00     movlw   0                	MOVLW	0x00
+00023c   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00023e   0e01     movlw   0x1              	MOVLW	0x01
+000240   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000242   ec9d     call    0x33a, 0         	CALL	_EnviaComando
+000244   f001
+000246   0e03     movlw   0x3              	MOVLW	0x03
+000248   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	100; drvLcd.c	EnviaComando(0x80); //posição inicial
+00024a   0e00     movlw   0                	MOVLW	0x00
+00024c   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+00024e   0e00     movlw   0                	MOVLW	0x00
+000250   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000252   0e80     movlw   0x80             	MOVLW	0x80
+000254   6ee5     movwf   0xe5, 0          	MOVWF	POSTDEC1
+000256   ec9d     call    0x33a, 0         	CALL	_EnviaComando
+000258   f001
+00025a   0e03     movlw   0x3              	MOVLW	0x03
+00025c   26e1     addwf   0xe1, 0x1, 0     	ADDWF	FSR1L, F
+                                           ;	.line	102; drvLcd.c	eu.drv_id = (char) parameters;
+00025e   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000260   0100     movlb   0                	BANKSEL	_eu
+000262   6f87     movwf   0x87, 0x1        	MOVWF	_eu, B
+                                           ;	.line	103; drvLcd.c	return FIM_OK;
+000264   0e01     movlw   0x1              	MOVLW	0x01
+000266   cfe4     movff   0xfe4, 0x3       	MOVFF	PREINC1, r0x03
+000268   f003
+00026a   cfe4     movff   0xfe4, 0x2       	MOVFF	PREINC1, r0x02
+00026c   f002
+00026e   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+000270   f001
+000272   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+000274   f000
+000276   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000278   ffd9
+00027a   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_drvLcd__EnviaDados	code
+                                           _EnviaDados:
+                                           ;	.line	61; drvLcd.c	char EnviaDados(void *parameters) {
+00027c   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+00027e   ffe5
+000280   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000282   ffd9
+000284   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+000286   ffe5
+000288   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+00028a   ffe5
+00028c   c002     movff   0x2, 0xfe5       	MOVFF	r0x02, POSTDEC1
+00028e   ffe5
+000290   c003     movff   0x3, 0xfe5       	MOVFF	r0x03, POSTDEC1
+000292   ffe5
+000294   0e02     movlw   0x2              	MOVLW	0x02
+000296   cfdb     movff   0xfdb, 0         	MOVFF	PLUSW2, r0x00
+000298   f000
+00029a   0e03     movlw   0x3              	MOVLW	0x03
+00029c   cfdb     movff   0xfdb, 0x1       	MOVFF	PLUSW2, r0x01
+00029e   f001
+0002a0   0e04     movlw   0x4              	MOVLW	0x04
+0002a2   cfdb     movff   0xfdb, 0x2       	MOVFF	PLUSW2, r0x02
+0002a4   f002
+                                           ;	.line	62; drvLcd.c	BitSet(PORTE, RS); //dados
+0002a6   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0002a8   f084
+0002aa   cfef     movff   0xfef, 0x3       	MOVFF	INDF0, r0x03
+0002ac   f003
+0002ae   8003     bsf     0x3, 0, 0        	BSF	r0x03, 0
+0002b0   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0002b2   f084
+0002b4   c003     movff   0x3, 0xfef       	MOVFF	r0x03, INDF0
+0002b6   ffef
+                                           ;	.line	63; drvLcd.c	BitClr(PORTE, RW); // habilita escrita
+0002b8   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0002ba   f084
+0002bc   cfef     movff   0xfef, 0x3       	MOVFF	INDF0, r0x03
+0002be   f003
+0002c0   9403     bcf     0x3, 0x2, 0      	BCF	r0x03, 2
+0002c2   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0002c4   f084
+0002c6   c003     movff   0x3, 0xfef       	MOVFF	r0x03, INDF0
+0002c8   ffef
+                                           ;	.line	66; drvLcd.c	PORTD = (unsigned char)parameters;
+0002ca   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+0002cc   f083
+0002ce   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+0002d0   ffef
+                                           ;	.line	67; drvLcd.c	BitSet(PORTE, EN); //habilita leitura
+0002d2   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0002d4   f084
+0002d6   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+0002d8   f000
+0002da   8200     bsf     0, 0x1, 0        	BSF	r0x00, 1
+0002dc   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0002de   f084
+0002e0   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+0002e2   ffef
+                                           ;	.line	68; drvLcd.c	Delay40us();
+0002e4   ec54     call    0x6a8, 0         	CALL	_Delay40us
+0002e6   f003
+                                           ;	.line	69; drvLcd.c	BitClr(PORTE, EN); //termina leitura
+0002e8   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0002ea   f084
+0002ec   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+0002ee   f000
+0002f0   9200     bcf     0, 0x1, 0        	BCF	r0x00, 1
+0002f2   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0002f4   f084
+0002f6   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+0002f8   ffef
+                                           ;	.line	70; drvLcd.c	BitClr(PORTE, RS); //deixa em nivel baixo
+0002fa   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0002fc   f084
+0002fe   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+000300   f000
+000302   9000     bcf     0, 0, 0          	BCF	r0x00, 0
+000304   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+000306   f084
+000308   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+00030a   ffef
+                                           ;	.line	71; drvLcd.c	BitClr(PORTE, RW); //deixa em nivel baixo
+00030c   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+00030e   f084
+000310   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+000312   f000
+000314   9400     bcf     0, 0x2, 0        	BCF	r0x00, 2
+000316   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+000318   f084
+00031a   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+00031c   ffef
+                                           ;	.line	72; drvLcd.c	Delay40us();
+00031e   ec54     call    0x6a8, 0         	CALL	_Delay40us
+000320   f003
+                                           ;	.line	74; drvLcd.c	return FIM_OK;
+000322   0e01     movlw   0x1              	MOVLW	0x01
+000324   cfe4     movff   0xfe4, 0x3       	MOVFF	PREINC1, r0x03
+000326   f003
+000328   cfe4     movff   0xfe4, 0x2       	MOVFF	PREINC1, r0x02
+00032a   f002
+00032c   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+00032e   f001
+000330   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+000332   f000
+000334   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000336   ffd9
+000338   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_drvLcd__EnviaComando	code
+                                           _EnviaComando:
+                                           ;	.line	46; drvLcd.c	char EnviaComando(void *parameters) {
+00033a   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+00033c   ffe5
+00033e   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000340   ffd9
+000342   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+000344   ffe5
+000346   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+000348   ffe5
+00034a   c002     movff   0x2, 0xfe5       	MOVFF	r0x02, POSTDEC1
+00034c   ffe5
+00034e   c003     movff   0x3, 0xfe5       	MOVFF	r0x03, POSTDEC1
+000350   ffe5
+000352   0e02     movlw   0x2              	MOVLW	0x02
+000354   cfdb     movff   0xfdb, 0         	MOVFF	PLUSW2, r0x00
+000356   f000
+000358   0e03     movlw   0x3              	MOVLW	0x03
+00035a   cfdb     movff   0xfdb, 0x1       	MOVFF	PLUSW2, r0x01
+00035c   f001
+00035e   0e04     movlw   0x4              	MOVLW	0x04
+000360   cfdb     movff   0xfdb, 0x2       	MOVFF	PLUSW2, r0x02
+000362   f002
+                                           ;	.line	47; drvLcd.c	BitClr(PORTE, RS); //comando
+000364   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+000366   f084
+000368   cfef     movff   0xfef, 0x3       	MOVFF	INDF0, r0x03
+00036a   f003
+00036c   9003     bcf     0x3, 0, 0        	BCF	r0x03, 0
+00036e   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+000370   f084
+000372   c003     movff   0x3, 0xfef       	MOVFF	r0x03, INDF0
+000374   ffef
+                                           ;	.line	48; drvLcd.c	BitClr(PORTE, RW); // habilita escrita
+000376   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+000378   f084
+00037a   cfef     movff   0xfef, 0x3       	MOVFF	INDF0, r0x03
+00037c   f003
+00037e   9403     bcf     0x3, 0x2, 0      	BCF	r0x03, 2
+000380   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+000382   f084
+000384   c003     movff   0x3, 0xfef       	MOVFF	r0x03, INDF0
+000386   ffef
+                                           ;	.line	50; drvLcd.c	PORTD = (unsigned char)parameters;
+000388   ee0f     lfsr    0, 0xf83         	LFSR	0x00, 0xf83
+00038a   f083
+00038c   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+00038e   ffef
+                                           ;	.line	51; drvLcd.c	BitSet(PORTE, EN); //habilita leitura
+000390   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+000392   f084
+000394   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+000396   f000
+000398   8200     bsf     0, 0x1, 0        	BSF	r0x00, 1
+00039a   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+00039c   f084
+00039e   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+0003a0   ffef
+                                           ;	.line	52; drvLcd.c	Delay2ms();
+0003a2   ec3b     call    0x676, 0         	CALL	_Delay2ms
+0003a4   f003
+                                           ;	.line	53; drvLcd.c	BitClr(PORTE, EN); //termina leitura
+0003a6   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0003a8   f084
+0003aa   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+0003ac   f000
+0003ae   9200     bcf     0, 0x1, 0        	BCF	r0x00, 1
+0003b0   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0003b2   f084
+0003b4   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+0003b6   ffef
+                                           ;	.line	54; drvLcd.c	BitClr(PORTE, RS); //deixa em nivel baixo
+0003b8   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0003ba   f084
+0003bc   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+0003be   f000
+0003c0   9000     bcf     0, 0, 0          	BCF	r0x00, 0
+0003c2   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0003c4   f084
+0003c6   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+0003c8   ffef
+                                           ;	.line	55; drvLcd.c	BitClr(PORTE, RW); //deixa em nivel baixo
+0003ca   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0003cc   f084
+0003ce   cfef     movff   0xfef, 0         	MOVFF	INDF0, r0x00
+0003d0   f000
+0003d2   9400     bcf     0, 0x2, 0        	BCF	r0x00, 2
+0003d4   ee0f     lfsr    0, 0xf84         	LFSR	0x00, 0xf84
+0003d6   f084
+0003d8   c000     movff   0, 0xfef         	MOVFF	r0x00, INDF0
+0003da   ffef
+                                           ;	.line	56; drvLcd.c	Delay2ms();
+0003dc   ec3b     call    0x676, 0         	CALL	_Delay2ms
+0003de   f003
+                                           ;	.line	58; drvLcd.c	return FIM_OK;
+0003e0   0e01     movlw   0x1              	MOVLW	0x01
+0003e2   cfe4     movff   0xfe4, 0x3       	MOVFF	PREINC1, r0x03
+0003e4   f003
+0003e6   cfe4     movff   0xfe4, 0x2       	MOVFF	PREINC1, r0x02
+0003e8   f002
+0003ea   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+0003ec   f001
+0003ee   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+0003f0   f000
+0003f2   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0003f4   ffd9
+0003f6   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_drvLcd__Delay2ms	code
+                                           _Delay2ms:
+                                           ;	.line	39; drvLcd.c	void Delay2ms(void) {
+000676   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000678   ffe5
+00067a   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00067c   ffd9
+00067e   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+000680   ffe5
+000682   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+000684   ffe5
+                                           ;	.line	41; drvLcd.c	for (i = 0; i < 200; i++) {
+000686   0ec8     movlw   0xc8             	MOVLW	0xc8
+000688   6e00     movwf   0, 0             	MOVWF	r0x00
+                                           _00117_DS_:
+                                           ;	.line	42; drvLcd.c	Delay40us();
+00068a   ec54     call    0x6a8, 0         	CALL	_Delay40us
+00068c   f003
+00068e   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000690   6e01     movwf   0x1, 0           	MOVWF	r0x01
+000692   0401     decf    0x1, 0, 0        	DECF	r0x01, W
+000694   6e00     movwf   0, 0             	MOVWF	r0x00
+                                           ;	.line	41; drvLcd.c	for (i = 0; i < 200; i++) {
+000696   5000     movf    0, 0, 0          	MOVF	r0x00, W
+000698   e1f8     bnz     0x68a            	BNZ	_00117_DS_
+00069a   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+00069c   f001
+00069e   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+0006a0   f000
+0006a2   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0006a4   ffd9
+0006a6   0012     return  0                	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_drvLcd__Delay40us	code
+                                           _Delay40us:
+                                           ;	.line	32; drvLcd.c	void Delay40us(void) {
+0006a8   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0006aa   ffe5
+0006ac   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0006ae   ffd9
+0006b0   c000     movff   0, 0xfe5         	MOVFF	r0x00, POSTDEC1
+0006b2   ffe5
+0006b4   c001     movff   0x1, 0xfe5       	MOVFF	r0x01, POSTDEC1
+0006b6   ffe5
+                                           ;	.line	36; drvLcd.c	for (i = 0; i < 25; i++); //3 + 3 * 25 = 78
+0006b8   0e19     movlw   0x19             	MOVLW	0x19
+0006ba   6e00     movwf   0, 0             	MOVWF	r0x00
+                                           _00108_DS_:
+0006bc   5000     movf    0, 0, 0          	MOVF	r0x00, W
+0006be   6e01     movwf   0x1, 0           	MOVWF	r0x01
+0006c0   0401     decf    0x1, 0, 0        	DECF	r0x01, W
+0006c2   6e00     movwf   0, 0             	MOVWF	r0x00
+0006c4   5000     movf    0, 0, 0          	MOVF	r0x00, W
+0006c6   e1fa     bnz     0x6bc            	BNZ	_00108_DS_
+0006c8   cfe4     movff   0xfe4, 0x1       	MOVFF	PREINC1, r0x01
+0006ca   f001
+0006cc   cfe4     movff   0xfe4, 0         	MOVFF	PREINC1, r0x00
+0006ce   f000
+0006d0   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0006d2   ffd9
+0006d4   0012     return  0                	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  902 (0x0386) bytes ( 0.69%)
+                                           ;           	  451 (0x01c3) words
+                                           ; udata size:	   13 (0x000d) bytes ( 1.02%)
+                                           ; access size:	    4 (0x0004) bytes
+                                           
+                                           
+                                           	end

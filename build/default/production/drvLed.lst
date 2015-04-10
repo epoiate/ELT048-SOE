@@ -1,0 +1,261 @@
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.3.0 #8604 (May 11 2013) (MINGW32)
+                      00004 ; This file was generated Wed Apr 01 10:06:20 2015
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC16 port for the Microchip 16-bit core micros
+                      00007 ;--------------------------------------------------------
+                      00008         list    p=18f4520
+                      00009         radix   dec
+                      00010 
+                      00011 
+                      00012 ;--------------------------------------------------------
+                      00013 ; public variables in this module
+                      00014 ;--------------------------------------------------------
+  0000                00015         global  _getLedDriver
+  0000                00016         global  _changePORTD
+  0000                00017         global  _invertPORTD
+  0000                00018         global  _initLed
+                      00019 
+                      00020 ;--------------------------------------------------------
+                      00021 ;       Equates to used internal registers
+                      00022 ;--------------------------------------------------------
+  00000FE8            00023 WREG    equ     0xfe8
+  00000FE1            00024 FSR1L   equ     0xfe1
+  00000FD9            00025 FSR2L   equ     0xfd9
+  00000FEF            00026 INDF0   equ     0xfef
+  00000FE5            00027 POSTDEC1        equ     0xfe5
+  00000FE4            00028 PREINC1 equ     0xfe4
+  00000FDB            00029 PLUSW2  equ     0xfdb
+  00000FF3            00030 PRODL   equ     0xff3
+  00000FF4            00031 PRODH   equ     0xff4
+                      00032 
+                      00033 
+                      00034 ; Internal registers
+                      00035 .registers      udata_ovr       0x0000
+000000                00036 r0x00   res     1
+000001                00037 r0x01   res     1
+000002                00038 r0x02   res     1
+                      00039 
+                      00040 udata_drvLed_0  udata
+000000                00041 _eu     res     7
+                      00042 
+                      00043 udata_drvLed_1  udata
+000000                00044 _minhas_funcoes res     6
+                      00045 
+                      00046 ;--------------------------------------------------------
+                      00047 ; global & static initialisations
+                      00048 ;--------------------------------------------------------
+                      00049 ; I code from now on!
+                      00050 ; ; Starting pCode block
+                      00051 S_drvLed__getLedDriver  code
+000000                00052 _getLedDriver:
+                      00053 ;       .line   35; drvLed.c    driver* getLedDriver(void) {
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000000 CFD9 FFE5      00054         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00055         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00056         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00057         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      00058         MOVFF   r0x02, POSTDEC1
+                      00059 ;       .line   37; drvLed.c    eu.drv_init = initLed;
+000014 0E??           00060         MOVLW   LOW(_initLed)
+000016 ????           00061         BANKSEL (_eu + 4)
+000018 6F??           00062         MOVWF   (_eu + 4), B
+00001A 0E??           00063         MOVLW   HIGH(_initLed)
+00001C ????           00064         BANKSEL (_eu + 5)
+00001E 6F??           00065         MOVWF   (_eu + 5), B
+000020 0E??           00066         MOVLW   UPPER(_initLed)
+000022 ????           00067         BANKSEL (_eu + 6)
+000024 6F??           00068         MOVWF   (_eu + 6), B
+                      00069 ;       .line   39; drvLed.c    minhas_funcoes[LED_PORTD] = changePORTD;
+000026 0E??           00070         MOVLW   LOW(_changePORTD)
+000028 ????           00071         BANKSEL _minhas_funcoes
+00002A 6F??           00072         MOVWF   _minhas_funcoes, B
+00002C 0E??           00073         MOVLW   HIGH(_changePORTD)
+00002E ????           00074         BANKSEL (_minhas_funcoes + 1)
+000030 6F??           00075         MOVWF   (_minhas_funcoes + 1), B
+000032 0E??           00076         MOVLW   UPPER(_changePORTD)
+000034 ????           00077         BANKSEL (_minhas_funcoes + 2)
+000036 6F??           00078         MOVWF   (_minhas_funcoes + 2), B
+                      00079 ;       .line   40; drvLed.c    minhas_funcoes[LED_INVERTE] = invertPORTD;
+000038 0E??           00080         MOVLW   LOW(_invertPORTD)
+00003A ????           00081         BANKSEL (_minhas_funcoes + 3)
+00003C 6F??           00082         MOVWF   (_minhas_funcoes + 3), B
+00003E 0E??           00083         MOVLW   HIGH(_invertPORTD)
+000040 ????           00084         BANKSEL (_minhas_funcoes + 4)
+000042 6F??           00085         MOVWF   (_minhas_funcoes + 4), B
+000044 0E??           00086         MOVLW   UPPER(_invertPORTD)
+000046 ????           00087         BANKSEL (_minhas_funcoes + 5)
+000048 6F??           00088         MOVWF   (_minhas_funcoes + 5), B
+                      00089 ;       .line   42; drvLed.c    eu.drv_func = minhas_funcoes;
+00004A 0E??           00090         MOVLW   HIGH(_minhas_funcoes)
+00004C 6E??           00091         MOVWF   r0x01
+00004E 0E??           00092         MOVLW   LOW(_minhas_funcoes)
+000050 6E??           00093         MOVWF   r0x00
+000052 0E80           00094         MOVLW   0x80
+000054 6E??           00095         MOVWF   r0x02
+000056 50??           00096         MOVF    r0x00, W
+000058 ????           00097         BANKSEL (_eu + 1)
+00005A 6F??           00098         MOVWF   (_eu + 1), B
+00005C 50??           00099         MOVF    r0x01, W
+00005E ????           00100         BANKSEL (_eu + 2)
+000060 6F??           00101         MOVWF   (_eu + 2), B
+000062 50??           00102         MOVF    r0x02, W
+000064 ????           00103         BANKSEL (_eu + 3)
+000066 6F??           00104         MOVWF   (_eu + 3), B
+                      00105 ;       .line   43; drvLed.c    return &eu;
+000068 0E??           00106         MOVLW   HIGH(_eu)
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00006A 6E??           00107         MOVWF   r0x01
+00006C 0E??           00108         MOVLW   LOW(_eu)
+00006E 6E??           00109         MOVWF   r0x00
+000070 0E80           00110         MOVLW   0x80
+000072 6E??           00111         MOVWF   r0x02
+000074 C??? F???      00112         MOVFF   r0x02, PRODH
+000078 C??? F???      00113         MOVFF   r0x01, PRODL
+00007C 50??           00114         MOVF    r0x00, W
+00007E CFE4 F000      00115         MOVFF   PREINC1, r0x02
+000082 CFE4 F000      00116         MOVFF   PREINC1, r0x01
+000086 CFE4 F000      00117         MOVFF   PREINC1, r0x00
+00008A CFE4 FFD9      00118         MOVFF   PREINC1, FSR2L
+00008E 0012           00119         RETURN  
+                      00120 
+                      00121 ; ; Starting pCode block
+                      00122 S_drvLed__initLed       code
+000000                00123 _initLed:
+                      00124 ;       .line   25; drvLed.c    char initLed(void *parameters) {
+000000 CFD9 FFE5      00125         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00126         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00127         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00128         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      00129         MOVFF   r0x02, POSTDEC1
+000014 0E02           00130         MOVLW   0x02
+000016 CFDB F000      00131         MOVFF   PLUSW2, r0x00
+00001A 0E03           00132         MOVLW   0x03
+00001C CFDB F000      00133         MOVFF   PLUSW2, r0x01
+000020 0E04           00134         MOVLW   0x04
+000022 CFDB F000      00135         MOVFF   PLUSW2, r0x02
+                      00136 ;       .line   26; drvLed.c    TRISD = 0x00;
+000026 EE0F F095      00137         LFSR    0x00, 0xf95
+00002A 0E00           00138         MOVLW   0x00
+00002C 6EEF           00139         MOVWF   INDF0
+                      00140 ;       .line   27; drvLed.c    eu.drv_id = (char) parameters;
+00002E 50??           00141         MOVF    r0x00, W
+000030 ????           00142         BANKSEL _eu
+000032 6F??           00143         MOVWF   _eu, B
+                      00144 ;       .line   28; drvLed.c    return FIM_OK;
+000034 0E01           00145         MOVLW   0x01
+000036 CFE4 F000      00146         MOVFF   PREINC1, r0x02
+00003A CFE4 F000      00147         MOVFF   PREINC1, r0x01
+00003E CFE4 F000      00148         MOVFF   PREINC1, r0x00
+000042 CFE4 FFD9      00149         MOVFF   PREINC1, FSR2L
+000046 0012           00150         RETURN  
+                      00151 
+                      00152 ; ; Starting pCode block
+                      00153 S_drvLed__invertPORTD   code
+000000                00154 _invertPORTD:
+                      00155 ;       .line   18; drvLed.c    char invertPORTD(void *parameters) {
+000000 CFD9 FFE5      00156         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00157         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00158         MOVFF   r0x00, POSTDEC1
+                      00159 ;       .line   19; drvLed.c    PORTD = ~PORTD;
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00000C EE0F F083      00160         LFSR    0x00, 0xf83
+000010 CFEF F000      00161         MOVFF   INDF0, r0x00
+000014 1E??           00162         COMF    r0x00, F
+000016 EE0F F083      00163         LFSR    0x00, 0xf83
+00001A C??? F???      00164         MOVFF   r0x00, INDF0
+                      00165 ;       .line   20; drvLed.c    return FIM_OK;
+00001E 0E01           00166         MOVLW   0x01
+000020 CFE4 F000      00167         MOVFF   PREINC1, r0x00
+000024 CFE4 FFD9      00168         MOVFF   PREINC1, FSR2L
+000028 0012           00169         RETURN  
+                      00170 
+                      00171 ; ; Starting pCode block
+                      00172 S_drvLed__changePORTD   code
+000000                00173 _changePORTD:
+                      00174 ;       .line   13; drvLed.c    char changePORTD(void *parameters) {
+000000 CFD9 FFE5      00175         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00176         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00177         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00178         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      00179         MOVFF   r0x02, POSTDEC1
+000014 0E02           00180         MOVLW   0x02
+000016 CFDB F000      00181         MOVFF   PLUSW2, r0x00
+00001A 0E03           00182         MOVLW   0x03
+00001C CFDB F000      00183         MOVFF   PLUSW2, r0x01
+000020 0E04           00184         MOVLW   0x04
+000022 CFDB F000      00185         MOVFF   PLUSW2, r0x02
+                      00186 ;       .line   14; drvLed.c    PORTD = (char) parameters;
+000026 EE0F F083      00187         LFSR    0x00, 0xf83
+00002A C??? F???      00188         MOVFF   r0x00, INDF0
+                      00189 ;       .line   15; drvLed.c    return FIM_OK;
+00002E 0E01           00190         MOVLW   0x01
+000030 CFE4 F000      00191         MOVFF   PREINC1, r0x02
+000034 CFE4 F000      00192         MOVFF   PREINC1, r0x01
+000038 CFE4 F000      00193         MOVFF   PREINC1, r0x00
+00003C CFE4 FFD9      00194         MOVFF   PREINC1, FSR2L
+000040 0012           00195         RETURN  
+                      00196 
+                      00197 
+                      00198 
+                      00199 ; Statistics:
+                      00200 ; code size:      324 (0x0144) bytes ( 0.25%)
+                      00201 ;                 162 (0x00a2) words
+                      00202 ; udata size:      13 (0x000d) bytes ( 1.02%)
+                      00203 ; access size:      3 (0x0003) bytes
+                      00204 
+                      00205 
+                      00206         end
+gpasm-1.2.0 #980 (May 17 2013) build/default/   4-1-2015  10:06:20          PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+INDF0                             00000FEF
+PLUSW2                            00000FDB
+POSTDEC1                          00000FE5
+PREINC1                           00000FE4
+PRODH                             00000FF4
+PRODL                             00000FF3
+WREG                              00000FE8
+__18F4520                         00000001
+_changePORTD                      00000000
+_eu                               00000000
+_getLedDriver                     00000000
+_initLed                          00000000
+_invertPORTD                      00000000
+_minhas_funcoes                   00000000
+r0x00                             00000000
+r0x01                             00000001
+r0x02                             00000002
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+
